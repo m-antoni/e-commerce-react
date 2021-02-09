@@ -18,8 +18,8 @@ export const MiniSpinner = () => {
 
 // Styles
 const spinnerStyle = {
-	paddingTop: '100px',
-	paddingBottom: '500px',
+	// paddingTop: '100px',
+	// paddingBottom: '500px',
 	width: '100px',
 	margin: 'auto',
 	display: 'block'
