@@ -5,6 +5,7 @@ const initialState = {
     email: '',
     password: '',
     confirm_password: '',
+    success: false,
     loading: null,
 }
 
@@ -27,7 +28,13 @@ const authReducer = (state = initialState, action) => {
                 email: '',
                 password: '',
                 confirm_password: '',
+                success: false,
                 loading: null,
+            }
+        case TYPES.LOGIN_SUCCESS:
+            return {
+                ...state,
+                success: true
             }
         default:
             return state;

@@ -62,3 +62,14 @@ export const isToday = (date) => {
       date.getMonth() === today.getMonth() &&
       date.getFullYear() === today.getFullYear();
 };
+
+export const priceFormat = (number, decimal = 2, comma = true) => {
+    if(comma){
+      return Number(parseFloat(number).toFixed(decimal)).toLocaleString('en', {
+          minimumFractionDigits: decimal
+      });
+    }
+    else{
+      return Number(parseFloat(number).toFixed(decimal));
+    }
+}

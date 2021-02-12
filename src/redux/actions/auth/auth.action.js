@@ -36,8 +36,8 @@ export const authRegister = () => async (dispatch, getState) => {
 
         const res = await AuthService.authRegister(formParams);
         setUserSession(res.data.token);
-        window.location.pathname = res.data.redirect;
-
+        
+        dispatch({ type: TYPES.LOGIN_SUCCESS });
         dispatch(clearAuthForm());
         dispatch(setLoading());
 
@@ -67,8 +67,8 @@ export const authLogin = () => async (dispatch, getState) => {
         const res = await AuthService.authLogin(formParams);
     
         setUserSession(res.data.token);
-        window.location.pathname = res.data.redirect;
         dispatch(clearAuthForm());
+        dispatch({ type: TYPES.LOGIN_SUCCESS });
         dispatch(setLoading());
 
     } catch (err) {

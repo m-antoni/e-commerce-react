@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage';
 
 // All reducers
 import authReducer from './auth.reducer';
+import productReducer from './product.reducer';
 
 // persist config 
 const persistConfig = {
@@ -14,7 +15,8 @@ const persistConfig = {
 
 // combining all reducers
 const rootReducer = combineReducers({
-    auth: authReducer
+    auth: authReducer,
+    product: productReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);
