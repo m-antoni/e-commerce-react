@@ -3,8 +3,6 @@ import * as TYPES from '../types';
 const initialState = {
     products: [],
     single_product: null,
-    cart: 0,
-    cart_items: [],
     loading: false,
 }
 
@@ -24,12 +22,6 @@ const productReducer = (state = initialState, action) => {
             return {
                 ...state,
                 single_product: action.payload
-            }
-        case TYPES.HANDLE_CART:
-            return {
-                ...state,
-                cart: action.payload.cart,
-                cart_items: action.payload.cart_items
             }
         default:
             return state;

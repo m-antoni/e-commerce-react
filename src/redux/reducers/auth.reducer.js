@@ -5,8 +5,13 @@ const initialState = {
     email: '',
     password: '',
     confirm_password: '',
-    success: false,
     loading: null,
+    user_data: {
+        isAuthenticated: false,
+        user: '',
+        id: '',
+        token: '',
+    },
 }
 
 const authReducer = (state = initialState, action) => {
@@ -28,13 +33,22 @@ const authReducer = (state = initialState, action) => {
                 email: '',
                 password: '',
                 confirm_password: '',
-                success: false,
                 loading: null,
             }
         case TYPES.LOGIN_SUCCESS:
             return {
                 ...state,
-                success: true
+                user_data: action.payload
+            }
+        case TYPES.LOGIN_FAILED: 
+            return {
+                ...state,
+                user_data: {
+                    isAuthenticated: false,
+                    user: '',
+                    id: '',
+                    token: '',
+                },
             }
         default:
             return state;

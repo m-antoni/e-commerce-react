@@ -5,10 +5,10 @@ import { handleInputChange, authRegister } from '../../redux/actions/auth/auth.a
 import { Spinner } from '../layouts/Spinner';
 
 
-function Register({ auth: { name, email, password, confirm_password, loading, success }, handleInputChange, authRegister }) {
+function Register({ auth: { name, email, password, confirm_password, loading, user_data: { isAuthenticated } }, handleInputChange, authRegister }) {
 
-    if(success){
-        return <Redirect to={'/dashboard'}/>
+    if(isAuthenticated){
+        return <Redirect to={'/home'}/>
     }
 
     return (

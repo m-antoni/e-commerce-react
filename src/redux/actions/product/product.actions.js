@@ -18,7 +18,6 @@ export const getAllProducts = () => async dispatch => {
         
         const res = await ProductService.getAllProducts();
 
-        console.log(res);
         dispatch({ type: TYPES.GET_ALL_PRODUCTS, payload: res.data });
         dispatch(setLoading(false));
 
@@ -44,7 +43,6 @@ export const getSingleProduct = (id) => async dispatch => {
         
         const res = await ProductService.getSingleProduct(id);
 
-        console.log(res);
         dispatch({ type: TYPES.GET_SINGLE_PRODUCT, payload: res.data });
         dispatch(setLoading(false));
 
@@ -90,3 +88,18 @@ export const handleCart = (action, item) => async (dispatch, getState) => {
     }
 }
 
+
+
+export const getUsersCart = () => async dispatch => {
+    
+    try {
+        
+        const res = await ProductService.getUsersCart();
+
+        console.log(res);
+
+    } catch (err) {
+        console.log(err)
+    }
+
+}

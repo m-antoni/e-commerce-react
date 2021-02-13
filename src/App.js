@@ -20,12 +20,15 @@ import Navbar from './components/layouts/Navbar';
 import ProductView from './components/private/ProductView';
 import CartItems from './components/private/CartItems';
 
+// Authentication Verify User
+import { authVerify } from './redux/actions/auth/auth.action';
 
 function App() {
 
   useEffect(() => {
+    store.dispatch(authVerify()); 
     $('body').addClass('bg-gray-100');
-   }, [])
+  },[])
 
   return (
     <Provider store={store}>
@@ -40,7 +43,7 @@ function App() {
 
                 <PrivateRoute path="/home" exact component={Home}/>
                 <PrivateRoute path="/home/products/:id" exact component={ProductView}/>
-                <PrivateRoute path="/home/products/cart" exact component={CartItems}/>
+                <PrivateRoute path="/home/carts" exact component={CartItems}/>
                 <PublicRoute component={PageNotFound} />
               </Switch>
             </Fragment>

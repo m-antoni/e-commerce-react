@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { handleInputChange, authLogin } from '../../redux/actions/auth/auth.action';
 import { Spinner } from '../layouts/Spinner';
 
-function Login({ auth: { email, password, loading, success }, handleInputChange, authLogin }) {
+function Login({ auth: { email, password, loading, user_data: { isAuthenticated } }, handleInputChange, authLogin }) {
 
-    if(success){
-        return <Redirect to={'/dashboard'}/>
+    if(isAuthenticated){
+        return <Redirect to={'/home'}/>
     }
 
     return (
@@ -36,7 +36,7 @@ function Login({ auth: { email, password, loading, success }, handleInputChange,
 }
 
 const mapStateToProps = state => ({
-    auth: state.auth
+    auth: state.auth,
 })
 
 export default connect(mapStateToProps, { handleInputChange, authLogin })(Login);

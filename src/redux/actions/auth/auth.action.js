@@ -1,7 +1,7 @@
 import * as TYPES from './../../types';
 import { AuthService } from './_service.auth';
 import { ToastDanger } from '../../../helpers/_toast';
-import { setUserSession } from '../../../helpers/common';
+import { getToken, removeUserSession, setUserSession } from '../../../helpers/common';
 
 // Set loading
 export const setLoading = (type = null) => async dispatch => dispatch({ type: TYPES.SET_LOADING, payload: type });
@@ -14,6 +14,39 @@ export const handleInputChange = e => async dispatch => {
 
 // Handle to clear forms
 export const clearAuthForm = () => async dispatch => dispatch({ type: TYPES.CLEAR_AUTH_FORM });
+
+
+/**
+ * @route GET '/api/auth/verify
+ * @desc User Login
+ * @access public
+*/
+export const authVerify = () => dispatch => {
+    
+    if(!getToken()) {
+        dispatch({ type: TYPES.LOGIN_FAILED });
+    }
+
+    dispatch(setLoading('auth'));
+    AuthService.authVerify().then(res => {
+        const payload = {
+            isAuthenticated: true,
+            user: res.data.user,
+            id: res.data.id,
+            token: res.data.token,
+        }
+        dispatch(setLoading());
+        dispatch({ type: TYPES.LOGIN_SUCCESS, payload });
+    })
+    .catch(err => {
+        dispatch(setLoading());
+        dispatch({ type: TYPES.LOGIN_FAILED });
+        console.log(err);
+    })
+
+}
+
+
 
 /**
  * @route POST '/api/auth/register
@@ -37,12 +70,18 @@ export const authRegister = () => async (dispatch, getState) => {
         const res = await AuthService.authRegister(formParams);
         setUserSession(res.data.token);
         
-        dispatch({ type: TYPES.LOGIN_SUCCESS });
-        dispatch(clearAuthForm());
+        const payload = {
+            isAuthenticated: true,
+            user: res.data.user,
+            id: res.data.id,
+            token: res.data.token,
+        }
+
+        dispatch({ type: TYPES.LOGIN_SUCCESS, payload });
         dispatch(setLoading());
 
     } catch (err) {
-        ToastDanger(err.data.errors);
+        ToastDanger('Server Error.');
         dispatch(setLoading());
         console.log(err);
     }
@@ -65,15 +104,28 @@ export const authLogin = () => async (dispatch, getState) => {
         const formParams = { email, password };
 
         const res = await AuthService.authLogin(formParams);
-    
         setUserSession(res.data.token);
-        dispatch(clearAuthForm());
-        dispatch({ type: TYPES.LOGIN_SUCCESS });
+
+        const payload = {
+            isAuthenticated: true,
+            user: res.data.user,
+            id: res.data.id,
+            token: res.data.token,
+        }
+
+        dispatch({ type: TYPES.LOGIN_SUCCESS, payload });
         dispatch(setLoading());
 
     } catch (err) {
-        ToastDanger(err.data.errors);
+        ToastDanger('Server Error.');
         dispatch(setLoading());
         console.log(err);
     }
+}
+
+
+
+export const logOut = () => dispatch => {
+    removeUserSession();
+    dispatch({ type: TYPES.LOGIN_FAILED });
 }

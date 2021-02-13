@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Spinner } from '../layouts/Spinner';
-import { getSingleProduct, handleCart } from '../../redux/actions/product/product.actions';
+import { getSingleProduct } from '../../redux/actions/product/product.actions';
+import { handleCart } from '../../redux/actions/cart/cart.actions';
 import { priceFormat } from '../../helpers/common';
 
 function ProductView({ product: { single_product, loading }, getSingleProduct, handleCart }) {
@@ -22,11 +23,11 @@ function ProductView({ product: { single_product, loading }, getSingleProduct, h
                             {
                                 <>
                                     <div className="flex md:flex-row flex-col py-5 px-10 bg-white">
-                                        <img className="object-contain h-48 w-full sm:mb-5" src={single_product.image} alt=""/>
-                                        <div className="md:ml-10">
+                                        <img className="h-full w-64 sm:mb-5 mx-auto" src={single_product.image} alt=""/>
+                                        <div className="md:ml-24">
                                             <h4 className="font-bold md:text-2xl text-lg">{single_product.title}</h4>
                                             <p className="text-sm my-5">{single_product.description}</p>
-                                            <p className="font-bold md:text-3xl text-2xl text-yellow-900 my-5">{priceFormat(single_product.price)}</p>
+                                            <p className="font-bold md:text-3xl text-2xl text-yellow-900 my-5">&#8369; {priceFormat(single_product.price)}</p>
 
                                             <div className="flex justify-between mt-5">
                                                 <button className=" text-white bg-red-900 hover:bg-black py-2 px-3 w-full mr-3">BUY NOW</button>
