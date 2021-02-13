@@ -12,7 +12,7 @@ function Register({ auth: { name, email, password, confirm_password, loading, su
     }
 
     return (
-        <div className="flex justify-center mt-5 pt-32">
+        <div className="flex justify-center pt-32">
             <div className="sm:w-full sm:m-10 md:w-96 p-10 bg-white">
                 <h3 className="font-bold pb-2 text-2xl border-b mb-4">Sign Up</h3>
                 {
@@ -38,7 +38,7 @@ function Register({ auth: { name, email, password, confirm_password, loading, su
                         </div>
 
                         <div className="mt-5">
-                            <button onClick={authRegister} className="py-2 px-3 text-white bg-yellow-500 hover:bg-black rounded w-full btn-register">Register</button>
+                            <button onClick={authRegister} className="py-2 px-3 text-white bg-yellow-500 hover:bg-black w-full btn-register">Register</button>
                         </div>
                     </>
                 }

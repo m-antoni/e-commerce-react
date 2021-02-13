@@ -16,14 +16,15 @@ import Register from './components/public/Register';
 import PageNotFound from './components/public/PageNotFound';
 
 // Private Route
-import Dashboard from './components/private/Dashboard';
 import Navbar from './components/layouts/Navbar';
+import ProductView from './components/private/ProductView';
+import CartItems from './components/private/CartItems';
 
 
 function App() {
 
   useEffect(() => {
-    $('body').addClass('bg-black');
+    $('body').addClass('bg-gray-100');
    }, [])
 
   return (
@@ -37,8 +38,9 @@ function App() {
                 <PublicRoute path="/login" exact component={Login}/>
                 <PublicRoute path="/register" exact component={Register}/>
 
-                <PrivateRoute path="/dashboard" exact component={Dashboard} />
-                
+                <PrivateRoute path="/home" exact component={Home}/>
+                <PrivateRoute path="/home/products/:id" exact component={ProductView}/>
+                <PrivateRoute path="/home/products/cart" exact component={CartItems}/>
                 <PublicRoute component={PageNotFound} />
               </Switch>
             </Fragment>

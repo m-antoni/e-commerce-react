@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Spinner } from '../layouts/Spinner';
-import { getAllProducts } from '../../redux/actions/product/product.actions';
+import { getAllProducts, handleCart } from '../../redux/actions/product/product.actions';
 import { priceFormat } from '../../helpers/common';
 
-function Home({ product: { products, loading }, getAllProducts }) {
+function Home({ product: { products, loading, cart }, getAllProducts, handleCart }) {
 
     useEffect(() => {
         getAllProducts();
@@ -19,16 +19,19 @@ function Home({ product: { products, loading }, getAllProducts }) {
                         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2 pb-20"> 
                             {
                                 products.map(item => (
-                                    <div className="p-3 bg-white col-auto cursor-pointer">
-                                        <img className="object-contain h-48 w-full" src={item.image} alt=""/>
+                                    <div className="p-5 bg-white col-auto cursor-pointer border-2 hover:border-gray-500 border-white">
+                                        <Link to={`/home/products/${item.id}`}>
+                                            <img className="object-contain h-48 w-full" src={item.image} alt=""/>
 
-                                        <div className="flex justify-between mt-10">
-                                            <span className="text-lg">{item.title.slice(0, 25) + (item.title.length > 25 ? "..." : "")}</span>
-                                            <span className="text-3xl text-yellow-900 font-bold">{priceFormat(item.price)}</span>
-                                        </div>
+                                            <div className="flex justify-between mt-10">
+                                                <span className="text-lg">{item.title.slice(0, 21) + (item.title.length > 21 ? "..." : "")}</span>
+                                                <span className="text-3xl text-yellow-900 font-bold">{priceFormat(item.price)}</span>
+                                            </div>
+                                        </Link>
+                                      
                                         <div className="flex mt-10">
-                                            <span className="text-white bg-red-900 py-1 px-2 hover:bg-black mr-3 w-full text-center">Buy Now</span>
-                                            <span className="text-white bg-yellow-500 py-1 px-2 hover:bg-black w-full text-center">Add to Cart</span>
+                                            <button className="text-white bg-red-900 hover:bg-black mr-3 w-full text-center py-2 px-3">Buy Now</button>
+                                            <button onClick={() => handleCart('add', item)}className="text-white bg-yellow-500 hover:bg-black w-full text-center py-2 px-3">Add to Cart</button>
                                         </div>
                                     </div>
                                 ))
@@ -44,4 +47,4 @@ const mapStateToProps = state => ({
     product: state.product
 })
 
-export default connect(mapStateToProps, { getAllProducts })(Home);
+export default connect(mapStateToProps, { getAllProducts, handleCart })(Home);
