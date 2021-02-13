@@ -26,10 +26,9 @@ import { authVerify } from './redux/actions/auth/auth.action';
 function App() {
 
   useEffect(() => {
+    store.dispatch(authVerify()); 
     $('body').addClass('bg-gray-100');
   },[])
-
-  store.dispatch(authVerify()); 
 
   return (
     <Provider store={store}>
