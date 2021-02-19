@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { handleInputChange, authLogin } from '../../redux/actions/auth/auth.action';
+import { handleInputChange, authLogin, clearAuthForm } from '../../redux/actions/auth/auth.action';
 import { Spinner } from '../layouts/Spinner';
 
-function Login({ auth: { email, password, loading, user_data: { isAuthenticated } }, handleInputChange, authLogin }) {
+function Login({ auth: { email, password, loading, user_data: { isAuthenticated } }, handleInputChange, authLogin, clearAuthForm }) {
+
+    useEffect(() => {
+        clearAuthForm();
+    },[]);
 
     if(isAuthenticated){
         return <Redirect to={'/home'}/>
@@ -39,4 +43,4 @@ const mapStateToProps = state => ({
     auth: state.auth,
 })
 
-export default connect(mapStateToProps, { handleInputChange, authLogin })(Login);
+export default connect(mapStateToProps, { handleInputChange, authLogin, clearAuthForm })(Login);

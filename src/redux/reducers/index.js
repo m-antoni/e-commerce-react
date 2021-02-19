@@ -11,7 +11,7 @@ import productReducer from './product.reducer';
 const persistConfig = {
     key: 'root',
     storage: storage,
-    whitelist: [] // you want to persist in localstorage
+    whitelist: ['cart'] // you want to persist in localstorage
 }
 
 // combining all reducers

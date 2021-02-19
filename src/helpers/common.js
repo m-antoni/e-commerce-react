@@ -20,6 +20,28 @@ export const setUserSession = (token) => {
   localStorage.setItem('token', token);
 }
   
+
+// set carts
+export const setUserCart = (carts, user_id) => {
+
+  const payload = {
+      user_id,
+      carts 
+  }
+
+  localStorage.setItem('user-carts', payload);
+}
+
+// remove user carts
+export const removeUserCart = () => localStorage.removeItem('user-carts');
+
+// get user carts
+export const getUserCart = () => {
+    const userCarts = localStorage.getItem('user-carts');
+    return userCarts ? JSON.parse(userCarts) : [];
+}
+
+
 // display current date
 export const displayDate = () => {
   const today = new Date();

@@ -7,7 +7,7 @@ import { priceFormat } from '../../helpers/common';
 function CartItems({ cart: { cart_items, loading }, handleCart, getUserCart }) {
 
     useEffect(() => {
-        // getUserCart();
+        getUserCart();
     }, [])
 
     return (

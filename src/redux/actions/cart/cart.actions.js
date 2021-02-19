@@ -35,22 +35,26 @@ export const handleCart = (action, item) => async (dispatch, getState) => {
     else
     {
         cart.filter(prod => prod.id !== item.id);
-
         dispatch({ type: TYPES.HANDLE_CART, payload: cart })
     }
 }
 
 
+// Get user Cart
 export const getUserCart = () => async dispatch => {
     
     try {
         
         const res = await CartService.getUserCart();
 
-        console.log(res);
+        let payload = {
+            cart: res.data.cart,
+            cart_items: res.data.cart_items
+        }
+
+        dispatch({ type: TYPES.GET_USER_CART, payload })
 
     } catch (err) {
         console.log(err)
     }
-
 }

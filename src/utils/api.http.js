@@ -12,6 +12,7 @@ http.interceptors.request.use (
   function (config) {
     const token = getToken();
     if (token) config.headers.common['x-auth-token'] = token;
+    // console.log(token)
     return config;
   },
   function (error) {

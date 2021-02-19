@@ -10,5 +10,8 @@ export const CLEAR_AUTH_FORM        = 'CLEAR_AUTH_FORM';
 export const GET_ALL_PRODUCTS       = 'GET_ALL_PRODUCTS';
 export const GET_SINGLE_PRODUCT     = 'GET_SINGLE_PRODUCT';
 export const HANDLE_CART            = 'HANDLE_CART';
+export const SAVE_CART              = 'SAVE_CART';
+export const CLEAR_CART             = 'CLEAR_CART';
+export const GET_USER_CART          = 'GET_USER_CART';
 
 

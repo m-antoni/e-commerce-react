@@ -38,7 +38,7 @@ function Home({ product: { products, loading, cart }, getAllProducts, handleCart
                                 ))
                             }
                         </div>
-                    : <h1>NO PRODUCTS TO DISPLAYS...</h1>
+                    : <h1 className="my-5 text-center">NO PRODUCTS TO DISPLAYS...</h1>
            }
         </div>
     )

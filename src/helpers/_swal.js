@@ -23,8 +23,8 @@ export const SwalWarning = (title, message, callback) => {
         text: message,
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#6967CE',
-        cancelButtonColor: '#fa626b',
+        confirmButtonColor: '#f59e0b',
+        cancelButtonColor: '#7f1d1d',
         confirmButtonText: 'Yes'
     }).then((result) => {
         if (result.value) {
@@ -40,7 +40,7 @@ export const SwalFormWarning = (title, message, confirm, cleanUp) => {
         text: message,
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#6967CE',
+        confirmButtonColor: '#f59e0b',
         cancelButtonColor: '#fa626b',
         confirmButtonText: 'Yes'
     }).then((result) => {
