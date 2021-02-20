@@ -6,13 +6,17 @@ import { getToken } from '../../helpers/common';
 import { SwalError } from '../../helpers/_swal';
 import { LogoutAlert } from '../../redux/actions/auth/auth.action';
 
-function Navbar({ auth: { user_data: { isAuthenticated, user } }, cart, LogoutAlert }) {
+function Navbar({ auth: { loading, user_data: { isAuthenticated, user } }, cart, LogoutAlert }) {
 
     const [dropdown, setDropdown] = useState(false);
 
     const handleDropdown = (link) => {
         setDropdown(false);
         link == 'logout' && LogoutAlert();
+    }
+
+    if(loading === 'verify'){
+        return null;
     }
 
     return (

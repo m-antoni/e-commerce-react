@@ -31,8 +31,9 @@ export const authVerify = () => async dispatch => {
     }
 
     try {
-        const res = await AuthService.authVerify()
 
+        dispatch(setLoading('verify'));
+        const res = await AuthService.authVerify()
         const payload = {
             isAuthenticated: true,
             user: res.data.user,
@@ -41,9 +42,11 @@ export const authVerify = () => async dispatch => {
         }
 
         dispatch({ type: TYPES.LOGIN_SUCCESS, payload });
+        dispatch(setLoading());
 
     } catch (err) {
         dispatch({ type: TYPES.LOGIN_FAILED });
+        dispatch(setLoading());
         dispatch(logOut());
         console.log(err);
     }

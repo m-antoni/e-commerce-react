@@ -7,11 +7,12 @@ import { getToken, getUserCart } from '../helpers/common';
 // handle the private routes
 function PrivateRoute({ component: Component, isAuthenticated, loading, ...rest }) {
 
+  if(loading === 'verify'){
+    return <div className="my-80"><Spinner/></div>
+  }
+
   return (
-    <Route
-      {...rest}
-      render={(props) => isAuthenticated ? <Component {...props} /> : <Redirect to={{ pathname: '/login' }} />}
-    />
+    <Route {...rest} render={(props) => isAuthenticated ? <Component {...props} /> : <Redirect to={{ pathname: '/login' }} />}/>
   )
 }
  

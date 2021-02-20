@@ -29,6 +29,7 @@ function App() {
     $('body').addClass('bg-gray-100');
   },[])
 
+  
   return (
     <Provider store={store}>
       <Router>
