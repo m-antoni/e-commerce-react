@@ -26,14 +26,11 @@ export const clearAuthForm = () => async dispatch => dispatch({ type: TYPES.CLEA
 */
 export const authVerify = () => async dispatch => {
 
-    if(!getToken()) {
-        dispatch({ type: TYPES.LOGIN_FAILED });
+    if(getToken() === null){
+        return; // dont't bother if token is null
     }
 
     try {
-
-        dispatch(setLoading('verify'));
-
         const res = await AuthService.authVerify()
 
         const payload = {
@@ -44,15 +41,13 @@ export const authVerify = () => async dispatch => {
         }
 
         dispatch({ type: TYPES.LOGIN_SUCCESS, payload });
-        dispatch(setLoading());
 
     } catch (err) {
         dispatch({ type: TYPES.LOGIN_FAILED });
-        dispatch(setLoading());
+        dispatch(logOut());
         console.log(err);
     }
 }
-
 
 
 /**

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor }  from './store';
+import { authVerify } from './redux/actions/auth/auth.action';
 import $ from 'jquery';
 
 // Routes
@@ -24,6 +25,7 @@ import CartItems from './components/private/CartItems';
 function App() {
 
   useEffect(() => {
+    store.dispatch(authVerify()); // verify the token 
     $('body').addClass('bg-gray-100');
   },[])
 

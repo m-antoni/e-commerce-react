@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import getStoredState from 'redux-persist/es/getStoredState';
+import { getToken } from '../../helpers/common';
 import { SwalError } from '../../helpers/_swal';
 import { LogoutAlert } from '../../redux/actions/auth/auth.action';
 
-function Navbar({ auth: { loading, user_data: { isAuthenticated, user } }, cart, LogoutAlert }) {
+function Navbar({ auth: { user_data: { isAuthenticated, user } }, cart, LogoutAlert }) {
 
     const [dropdown, setDropdown] = useState(false);
 
@@ -12,7 +14,7 @@ function Navbar({ auth: { loading, user_data: { isAuthenticated, user } }, cart,
         setDropdown(false);
         link == 'logout' && LogoutAlert();
     }
-    
+
     return (
         <nav className="bg-black py-5 fixed w-full mt-0">
             <div className="container px-5 md:px-20 mx-auto">
@@ -37,7 +39,7 @@ function Navbar({ auth: { loading, user_data: { isAuthenticated, user } }, cart,
                         </li>
                         <li className="flex cursor-pointer"> 
                             {
-                                isAuthenticated ? 
+                                getToken() ? 
                                     <div className="flex" onClick={() => setDropdown(!dropdown)}>
                                         <span className="hover:text-white text-yellow-500 mr-1">{user}</span>
                                         <svg className="w-6 h-6 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
