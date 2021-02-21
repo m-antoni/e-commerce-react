@@ -20,6 +20,7 @@ export const handleCart = (action, item) => async (dispatch, getState) => {
                 alert(`${item.title} is already added to cart.`)
             }else{
                 item['qty'] = 1;
+                item['checked'] = false;
                 cart_items.push(item);
                 cart++;
             }
@@ -66,6 +67,28 @@ export const removeItemFromCart = (item) => async (dispatch, getState) => {
     dispatch({ type: TYPES.HANDLE_CART, payload: { cart: cart_items_updated.length, cart_items: cart_items_updated } })
 }
 
+
+// Check item from cart items
+export const checkItem = (e, item) => async (dispatch, getState) => {
+    
+    let { checkout: { items, subtotal, total } } = getState().cart;
+    let { checked } = e.target;
+
+    // check if true add else remove
+    if(checked) {
+
+        let payload = {
+            items: items.push(item),
+            subtotal: subtotal + item.price,
+            total: subtotal 
+        }
+        
+        dispatch({ type: TYPES.CHECKED_ITEM, payload });
+    }else {
+        let updateCheckout = items.filter( _item => _item.id !== item.id );
+        dispatch({ type: TYPES.CHECKED_ITEM, payload: updateCheckout });
+    }
+}
 
 
 // Get user Cart
