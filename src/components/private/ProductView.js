@@ -27,7 +27,7 @@ function ProductView({ product: { single_product, loading }, getSingleProduct, h
                                         <div className="md:ml-24">
                                             <h4 className="font-bold md:text-2xl text-lg">{single_product.title}</h4>
                                             <p className="text-sm my-5">{single_product.description}</p>
-                                            <p className="font-bold md:text-3xl text-2xl text-yellow-900 my-5">&#8369; {priceFormat(single_product.price)}</p>
+                                            <p className="font-bold md:text-3xl text-2xl text-yellow-900 my-5">&#36;  {priceFormat(single_product.price)}</p>
 
                                             <div className="flex justify-between mt-5">
                                                 <button className=" text-white bg-red-900 hover:bg-black py-2 px-3 w-full mr-3">BUY NOW</button>

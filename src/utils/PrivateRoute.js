@@ -8,7 +8,7 @@ import { getToken, getUserCart } from '../helpers/common';
 function PrivateRoute({ component: Component, isAuthenticated, loading, ...rest }) {
 
   if(loading === 'verify'){
-    return <div className="my-80"><Spinner/></div>
+      return <div className="my-80"><Spinner/></div>
   }
 
   return (

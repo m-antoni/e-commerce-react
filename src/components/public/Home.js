@@ -26,7 +26,7 @@ function Home({ product: { products, loading, cart }, getAllProducts, handleCart
 
                                             <div className="flex justify-between mt-10">
                                                 <span className="text-lg">{item.title.slice(0, 21) + (item.title.length > 21 ? "..." : "")}</span>
-                                                <span className="text-3xl text-yellow-900 font-bold">{priceFormat(item.price)}</span>
+                                                <span className="text-3xl text-yellow-900 font-bold">&#36; {priceFormat(item.price)}</span>
                                             </div>
                                         </Link>
                                       
