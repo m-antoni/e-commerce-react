@@ -8,6 +8,7 @@ const initialState = {
         subtotal: 0.00,
         total: 0.00
     },
+    checked_group: false,
     loading: null,
 }
 
@@ -39,7 +40,9 @@ const cartReducer = (state = initialState, action) => {
         case TYPES.CHECKED_ITEM:
             return {
                 ...state,
-                checkout: action.payload,
+                checkout: action.payload.checkout,
+                cart_items: action.payload.cart_items,
+                checked_group: action.payload.checked_group
             }
         case TYPES.CLEAR_CART:
             return {

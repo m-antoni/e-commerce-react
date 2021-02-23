@@ -13,6 +13,6 @@ export const HANDLE_CART            = 'HANDLE_CART';
 export const SAVE_CART              = 'SAVE_CART';
 export const CLEAR_CART             = 'CLEAR_CART';
 export const GET_USER_CART          = 'GET_USER_CART';
-export const CHECKED_ITEM          = 'CHECKED_ITEM';
+export const CHECKED_ITEM           = 'CHECKED_ITEM';
 
 
