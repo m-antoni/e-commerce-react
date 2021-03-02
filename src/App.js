@@ -4,11 +4,9 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor }  from './store';
 import { authVerify } from './redux/actions/auth.action';
-import $ from 'jquery';
-
-// Routes
 import PrivateRoute from './utils/PrivateRoute';
 import PublicRoute from './utils/PublicRoute';
+import $ from 'jquery';
 
 // Public Route
 import Home from './components/public/Home';
@@ -20,6 +18,7 @@ import PageNotFound from './components/public/PageNotFound';
 import Navbar from './components/layouts/Navbar';
 import ProductView from './components/private/ProductView';
 import CartItems from './components/private/CartItems';
+import CheckOut from './components/private/CheckOut';
 
 
 function App() {
@@ -44,6 +43,7 @@ function App() {
                 <PrivateRoute path="/home" exact component={Home}/>
                 <PrivateRoute path="/home/products/:id" exact component={ProductView}/>
                 <PrivateRoute path="/home/user/cart" exact component={CartItems}/>
+                <PrivateRoute path="/home/user/check-out" exact component={CheckOut}/>
                 <PublicRoute component={PageNotFound} />
               </Switch>
             </Fragment>

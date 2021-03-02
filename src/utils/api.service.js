@@ -26,3 +26,11 @@ export const CartService =  {
     storeCart: (formParams) => http.post('/carts/store', formParams),
 }
 
+// Shipping
+export const ShippingService = {
+    getShipping: () => http.get('/shipping'),
+    addShipping: (formParams) => http.post('/shipping', formParams),
+    updateShipping: (id) => http.put(`/shipping/${id}`),
+    removeShipping: (id) => http.delete(`/shipping/${id}`),
+    updateDefault: (id) => http.put(`/shipping/default/${id}`)
+}

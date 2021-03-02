@@ -72,7 +72,7 @@ export const handleCart = (action, item) => async (dispatch, getState) => {
             checkout: {
                 items: update_items,
                 subtotal: _total,
-                total: _total
+                total: _total + 5
             },
             cart_items: update_items,
             checked_group: false
@@ -110,7 +110,7 @@ export const checkItem = (e, _item) => async (dispatch, getState) => {
            checkout: {
                 items: items.concat(_item),
                 subtotal: _total,
-                total: _total
+                total: _total + 5
            },
            cart_items: updateCart,
            checked_group: false
@@ -166,7 +166,7 @@ export const checkedGroup = e => async (dispatch ,getState) => {
         checkout: {
             items: checked ? update_cart : [],
             subtotal: _total,
-            total: _total
+            total: _total + 5
        },
        cart_items: update_cart,
        checked_group: checked
@@ -198,7 +198,6 @@ export const removeFromCart = () => async (dispatch, getState) => {
 
     dispatch({ type: TYPES.REMOVE_ITEM, payload });
 }
-
 
 
 

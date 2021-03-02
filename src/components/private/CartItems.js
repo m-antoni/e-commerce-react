@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import { Spinner } from '../layouts/Spinner';
 import { getUserCart, handleCart, checkItem, checkedGroup, removeWarning } from '../../redux/actions/cart.actions';
 import { priceFormat } from '../../helpers/globals';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function CartItems({ cart: { cart_items, checkout, checked_group }, checkItem ,handleCart, getUserCart, checkedGroup, removeWarning }) {
+
+    const history = useHistory();
 
     useEffect(() => {
         getUserCart();
@@ -31,10 +33,10 @@ function CartItems({ cart: { cart_items, checkout, checked_group }, checkItem ,h
                             cart_items.map(item => (
                                 <div className="py-5 bg-white w-full mx-auto mb-5"> 
                                     <div className="flex md:flex-row flex-col px-10 bg-white justify-between">
-                                        <input onChange={e => checkItem(e, item)} type="checkbox" className="self-start" name="checked_item" checked={item.checked}/>
+                                        <input id={item.id} onChange={e => checkItem(e, item)} type="checkbox" className="self-start" name="checked_item" checked={item.checked}/>
                                         <img className="w-10 self-center" src={item.image}/>
                                         <div className="w-1/2 flex flex-col self-center">
-                                            <h4 className="font-bold text-lg">{item.title}</h4>
+                                            <label for={item.id} className="font-bold text-lg cursor-pointer">{item.title}</label>
                                             <p className="text-sm text-gray-500">{item.description.slice(0, 100) + (item.title.length > 100 ? "..." : "...")}</p>
                                         </div>
                                         <div className="flex self-center">
@@ -71,7 +73,7 @@ function CartItems({ cart: { cart_items, checkout, checked_group }, checkItem ,h
                         </div>
                         <div className="flex justify-between mb-5">
                             <div className="font-medium text-sm text-gray-500">Shipping Fee</div>
-                            <div className="font-bold text-yellow-900">$ 0.00</div>
+                            <div className="font-bold text-yellow-900">$ 5.00</div>
                         </div>
 
                         <div className="border-2 text-yellow-900 my-2"></div>
@@ -81,7 +83,7 @@ function CartItems({ cart: { cart_items, checkout, checked_group }, checkItem ,h
                             <div className="font-bold text-yellow-900">$ { checkout ? priceFormat(checkout.total) : '0.00'}</div>
                         </div>
                         {
-                            checkout.items.length > 0 ? <button className="text-white bg-yellow-500 hover:bg-black py-2 px-3 w-full font-semibold">PROCEED TO CHECKOUT</button> :
+                            checkout.items.length > 0 ? <button onClick={() => history.push('/home/user/check-out')} className="text-white bg-yellow-500 hover:bg-black py-2 px-3 w-full font-semibold">PROCEED TO CHECKOUT</button> :
                             <button className="text-white bg-gray-500 py-2 px-3 w-full font-semibold" disabled><s>PROCEED TO CHECKOUT</s></button>
                         }
                     </div>

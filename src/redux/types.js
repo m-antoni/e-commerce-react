@@ -1,6 +1,7 @@
 //  TYPES HERE
 export const SET_LOADING            = 'SET_LOADING';   
 export const HANDLE_INPUT           = 'HANDLE_INPUT';
+export const SET_MODAL              = 'SET_MODAL';
 
 export const LOGIN_SUCCESS          = 'LOGIN_SUCCESS';
 export const LOGIN_FAILED           = 'LOGIN_FAILED';
@@ -15,3 +16,7 @@ export const CLEAR_CART             = 'CLEAR_CART';
 export const GET_USER_CART          = 'GET_USER_CART';
 export const CHECKED_ITEM           = 'CHECKED_ITEM';
 export const REMOVE_ITEM            = 'REMOVE_ITEM';
+
+export const GET_SHIPPING           = 'GET_SHIPPING';
+export const ADD_SHIPPING           = 'ADD_SHIPPING';
+
