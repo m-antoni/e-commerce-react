@@ -45,9 +45,10 @@ export const authVerify = () => async dispatch => {
         dispatch(setLoading());
 
     } catch (err) {
+        dispatch({ type: TYPES.CLEAR_CART });
         dispatch({ type: TYPES.LOGIN_FAILED });
+        removeUserSession();
         dispatch(setLoading());
-        dispatch(logOut());
         console.log(err);
     }
 }

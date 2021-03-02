@@ -80,7 +80,10 @@ function CartItems({ cart: { cart_items, checkout, checked_group }, checkItem ,h
                             <div className="font-medium text-sm">Grand Total</div>
                             <div className="font-bold text-yellow-900">$ { checkout ? priceFormat(checkout.total) : '0.00'}</div>
                         </div>
-                        <button className="text-white bg-yellow-500 hover:bg-black py-2 px-3 w-full font-semibold">PROCEED TO CHECKOUT</button>
+                        {
+                            checkout.items.length > 0 ? <button className="text-white bg-yellow-500 hover:bg-black py-2 px-3 w-full font-semibold">PROCEED TO CHECKOUT</button> :
+                            <button className="text-white bg-gray-500 py-2 px-3 w-full font-semibold" disabled><s>PROCEED TO CHECKOUT</s></button>
+                        }
                     </div>
                 </div>
             </div>

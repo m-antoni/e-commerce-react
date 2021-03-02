@@ -44,6 +44,11 @@ const cartReducer = (state = initialState, action) => {
                 cart_items: action.payload.cart_items,
                 checked_group: action.payload.checked_group
             }
+        case TYPES.REMOVE_ITEM:
+            return {
+                ...state,
+                ...action.payload
+            }
         case TYPES.CLEAR_CART:
             return {
                 ...state,

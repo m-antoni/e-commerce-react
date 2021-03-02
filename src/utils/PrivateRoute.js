@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Spinner } from '../components/layouts/Spinner';
-import { getToken, getUserCart } from '../helpers/common';
 
 // handle the private routes
 function PrivateRoute({ component: Component, isAuthenticated, loading, ...rest }) {

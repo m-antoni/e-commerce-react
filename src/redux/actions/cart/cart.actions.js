@@ -183,65 +183,22 @@ export const removeWarning = () => async dispatch => SwalWarning('Warning!', 'Ar
 
 export const removeFromCart = () => async (dispatch, getState) => {
 
-    let { cart_items, checkout: { items, subtotal } } = getState().cart;
+    let { cart_items } = getState().cart;
 
-    // Checked if item is Checked then will update the checkout state
-    let isChecked = cart_items.filter(cart => {
-        if(cart.checked){
-            return true;
-        }
-    });
+    let update_cart = cart_items.filter(cart => cart.checked !== true);
 
-    let update_cart_items =  cart_items.map(cart => {
-        isChecked.map(checked => {
-            if(cart.id === checked.id){
-                cart['checked'] = false;
-            }
-        })
-        return cart;
-    });
- 
-    
-    let update_items = items.filter(item => !isChecked.find(checked => (checked.id === item.id) ))
+    let payload = {
+        cart: update_cart.length,
+        cart_items: update_cart,
+        checkout: {
+            items: [],
+            subtotal: 0.00,
+            total: 0.00
+        },
+        checked_group: false,
+    }
 
-    console.log(update_items, isChecked)
-    // let checked_item = isChecked[0];
-    // checked_item['amount'] = Number((checked_item.price).toFixed(2)) * checked_item.qty;
-
-    // let update_items = items.map(_item => {
-    //     if(_item.id === item.id){
-    //         _item = checked_item;
-    //     }
-    //     return _item;
-    // });
-    
-    // let _total = update_items.reduce((prev, { amount }) => prev + amount, 0);
-
-    // let payload = {
-    //     checkout: {
-    //         items: update_items,
-    //         subtotal: _total,
-    //         total: _total
-    //     },
-    //     cart_items: update_items,
-    //     checked_group: false
-    // }
-
-    // dispatch({ type: TYPES.CHECKED_ITEM, payload });
-
-
-    // let payload = {
-    //     checkout: {
-    //         items: checked ? update_cart : [],
-    //         subtotal: _total,
-    //         total: _total
-    //    },
-    //    cart_items: update_cart,
-    //    checked_group: checked
-    // }
-
-    // dispatch({ type: TYPES.CHECKED_ITEM, payload });   
-
+    dispatch({ type: TYPES.REMOVE_ITEM, payload });
 }
 
 
