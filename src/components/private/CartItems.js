@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Spinner } from '../layouts/Spinner';
-import { getUserCart, handleCart, checkItem, checkedGroup, removeWarning } from '../../redux/actions/cart/cart.actions';
-import { priceFormat } from '../../helpers/common';
+import { getUserCart, handleCart, checkItem, checkedGroup, removeWarning } from '../../redux/actions/cart.actions';
+import { priceFormat } from '../../helpers/globals';
 import { Link } from 'react-router-dom';
 
 function CartItems({ cart: { cart_items, checkout, checked_group }, checkItem ,handleCart, getUserCart, checkedGroup, removeWarning }) {

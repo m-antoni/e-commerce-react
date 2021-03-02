@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { handleInputChange, authLogin, clearAuthForm } from '../../redux/actions/auth/auth.action';
+import { handleInputChange, authLogin, clearAuthForm } from '../../redux/actions/auth.action';
 import { Spinner } from '../layouts/Spinner';
 
 function Login({ auth: { email, password, loading, user_data: { isAuthenticated } }, handleInputChange, authLogin, clearAuthForm }) {

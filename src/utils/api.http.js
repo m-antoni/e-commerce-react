@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getToken } from '../helpers/common';
+import { getToken } from '../helpers/globals';
 const API_ROOT = process.env.REACT_APP_API_URL;
 
 const http = axios.create ({

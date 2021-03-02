@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { handleInputChange, authRegister, clearAuthForm } from '../../redux/actions/auth/auth.action';
+import { handleInputChange, authRegister, clearAuthForm } from '../../redux/actions/auth.action';
 import { Spinner } from '../layouts/Spinner';
 
 

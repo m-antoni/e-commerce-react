@@ -1,10 +1,9 @@
-import * as TYPES from './../../types';
-import { AuthService } from './_service.auth';
-import { CartService } from './../cart/_service.cart';
-import { ToastDanger } from '../../../helpers/_toast';
-import { getToken, removeUserSession, setUserSession } from '../../../helpers/common';
-import { SwalError, SwalWarning } from '../../../helpers/_swal';
-import { getUserCart } from '../cart/cart.actions';
+import * as TYPES from '../types';
+import { AuthService, CartService } from '../../utils/api.service';
+import { ToastDanger } from '../../helpers/toast';
+import { getToken, removeUserSession, setUserSession } from '../../helpers/globals';
+import { SwalError, SwalWarning } from '../../helpers/swal';
+import { getUserCart } from './cart.actions';
 
 // Set loading
 export const setLoading = (type = null) => async dispatch => dispatch({ type: TYPES.SET_LOADING, payload: type });

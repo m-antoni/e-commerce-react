@@ -1,8 +1,6 @@
-import * as TYPES from './../../types';
-import { ToastDanger } from '../../../helpers/_toast';
-import { CartService } from './_service.cart';
-import { SwalError, SwalWarning } from '../../../helpers/_swal';
-import { withRouter } from 'react-router-dom';
+import * as TYPES from '../types';
+import { CartService } from '../../utils/api.service';
+import { SwalWarning } from '../../helpers/swal';
 
 // Set loading
 export const setLoading = (type = null) => async dispatch => dispatch({ type: TYPES.SET_LOADING, payload: type });

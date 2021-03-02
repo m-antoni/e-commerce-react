@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import getStoredState from 'redux-persist/es/getStoredState';
-import { getToken } from '../../helpers/common';
-import { SwalError } from '../../helpers/_swal';
-import { LogoutAlert } from '../../redux/actions/auth/auth.action';
+import { getToken } from '../../helpers/globals';
+import { SwalError } from '../../helpers/swal';
+import { LogoutAlert } from '../../redux/actions/auth.action';
 
 function Navbar({ auth: { loading, user_data: { isAuthenticated, user } }, cart, LogoutAlert }) {
 

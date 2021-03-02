@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Spinner } from '../layouts/Spinner';
-import { getSingleProduct } from '../../redux/actions/product/product.actions';
-import { handleCart } from '../../redux/actions/cart/cart.actions';
-import { priceFormat } from '../../helpers/common';
+import { getSingleProduct } from '../../redux/actions/product.actions';
+import { handleCart } from '../../redux/actions/cart.actions';
+import { priceFormat } from '../../helpers/globals';
 
 function ProductView({ product: { single_product, loading }, getSingleProduct, handleCart }) {
 

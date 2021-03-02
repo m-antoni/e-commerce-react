@@ -1,6 +1,6 @@
-import * as TYPES from './../../types';
-import { ToastDanger } from '../../../helpers/_toast';
-import { ProductService } from './_service.product';
+import * as TYPES from './../types';
+import { ToastDanger } from '../../helpers/toast';
+import { ProductService } from '../../utils/api.service';
 
 // Set loading
 export const setLoading = (type = null) => async dispatch => dispatch({ type: TYPES.SET_LOADING, payload: type });

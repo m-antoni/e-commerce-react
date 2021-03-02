@@ -1,9 +1,9 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor }  from './store';
-import { authVerify } from './redux/actions/auth/auth.action';
+import { authVerify } from './redux/actions/auth.action';
 import $ from 'jquery';
 
 // Routes
