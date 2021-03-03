@@ -1,71 +1,98 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setModal } from '../../redux/actions/shipping.actions';
+import { setModal, handleInput, addShipping, genForm } from '../../redux/actions/shipping.actions';
+import 'react-responsive-modal/styles.css';
+import { Modal } from 'react-responsive-modal';
+import { Spinner } from '../layouts/Spinner';
 
-function ShippingModal({ setModal }) {
+function ShippingModal({ shipping: { shipping, loading, shipping_modal, forms }, setModal, handleInput, addShipping, genForm }) {
+
+    const closeIcon = (
+        <svg className="w-6 h-6 focus:outline-none mb-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    );
+
     return (
-        <div class="fixed z-10 inset-0 overflow-y-auto">
-            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-                </div>
-                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        <div>
+        <Modal open={shipping_modal} onClose={() => setModal(false)} center closeIcon={closeIcon} classNames={{ modal: 'shipping-modal' }}>
+          <h2 className="font-bold text-lg mb-2 text-yellow-500">Shipping Details</h2>
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-500">
+                <tr>
+                    <th scope="col" className="px-3 py-3 text-left text-sm font-medium text-white uppercase tracking-wider">Address</th>
+                    <th scope="col" className="px-3 py-3 text-left text-sm font-medium text-white uppercase tracking-wider">Contact</th>
+                    <th scope="col" className="px-3 py-3 text-left text-sm font-medium text-white uppercase tracking-wider">DEFAULT</th>
+                    <th scope="col" className="px-4 py-3 text-center text-sm font-medium text-white uppercase">
+                        
+                    </th>
+                </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+                {
+                    loading === 'shipping' ? <tr><td colspan="3" className="text-center py-2"><Spinner/></td></tr> : 
+                    shipping.map(ship => (
+                        <tr>
+                            <td className="px-3 py-4" width="50%">
+                                <div className="text-sm font-medium text-gray-500"> {ship.address}</div>
+                            </td>
+                            <td className="px-3 py-4" width="40%">
+                                <div className="text-sm font-medium text-gray-500">{ship.contact}</div>
+                            </td>
+                            <td className="px-10 py-4 text-center text-sm font-medium" width="10%">
+                                <input type="radio" className="font-medium" checked={ship.is_default ? true : false}/>
+                            </td>
+                            <td className="px-10 py-4 text-center text-sm font-medium" width="10%">
+                                <svg className="w-6 h-6 cursor-pointer text-gray-500 hover:text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+                            </td>
+                        </tr>
+                    ))
+                }
+                    <tr><td colspan="4" className="border-2 border-yellow-500"></td></tr>
+                {
+                    forms.map((form, index) => (
+                        <tr>
+                            <td className="px-3 py-4" width="50%">
+                                <div className="text-sm text-gray-500">
+                                    <input name="address" onChange={e => handleInput(e, index)} className="text-lg shadow p-2 w-full focus:outline-none focus:ring-1 focus:ring-gray-500 rounded" type="text" placeholder="Address"/>
+                                </div>
+                            </td>
+                            <td className="px-2 py-4" width="40%">
+                                <div className="text-sm text-gray-500">
+                                    <input name="contact" onChange={e => handleInput(e, index)} className="text-lg shadow p-2 w-full focus:outline-none focus:ring-1 focus:ring-gray-500 rounded" type="text" placeholder="Contact"/>
+                                </div>
+                            </td>
+                            <td className="px-2 py-4" width="40%">
+                                <div className="text-sm text-gray-500 text-center">
+                                    <input name="is_default" onChange={e => handleInput(e, index)} type="radio" className="font-medium"/>
+                                </div>
+                            </td>
+                            <td className="px-10 py-4 text-center" width="10%">
+                                <svg onClick={() => genForm('remove', index)} className="w-6 h-6 cursor-pointer text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+                            </td>
+                        </tr>
+                    ))
+                }
+                <tr>
+                    <td className="px-3 py-4" width="50%" colspan="3"> </td>
+                    <td className="px-10 py-4 text-center" width="10%">
+                        <svg onClick={() => genForm()} className="w-6 h-6 cursor-pointer text-blue-500 text-3xl" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"></path></svg>
+                    </td>
+                </tr>
 
-                <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-6xl sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <div class="flex flex-col">
-                        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                                <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Address
-                                        </th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Contact
-                                        </th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr>
-                                    <td class="px-6 py-4">
-                                        <div class="text-sm text-gray-500">
-                                            Bagong Silang Caloocan City, Phase 2 Package 1 Block 6 Lot 34
-                                        </div>
-                                    </td>
-                                    <td class="px-2 py-4">
-                                        <div class="text-sm text-gray-500">456456456456485</div>
-                                    </td>
-                                    <td class="px-10 py-4 text-right text-sm font-mediu">
-                                        <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                    </td>
-                                    </tr>
-                                </tbody>
-                                </table>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                    <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
-                        Deactivate
-                    </button>
-                    <button onClick={() => setModal(false)} type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
-                        Cancel
-                    </button>
-                </div>
-                </div>
-            </div>
-        </div>
+                <tr>
+                    <td colspan="4" className="px-10 py-4 text-right text-sm font-medium" width="10%">
+                        <button className="text-white py-2 px-6 bg-gray-900 hover:bg-gray-800 font-semibold"> SAVE SETTING </button>
+                    </td>
+                </tr>
+                
+            </tbody>
+            </table>
+        </Modal>
+      </div>
     )
 }
 
 const mapStateToProps = state => ({
-    //
+    shipping: state.shipping
 })
 
-export default connect(mapStateToProps, { setModal })(ShippingModal)
+export default connect(mapStateToProps, { setModal, handleInput, addShipping, genForm })(ShippingModal)
