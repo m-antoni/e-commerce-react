@@ -46,7 +46,7 @@ function ShippingModal({ shipping: { shipping, loading, shipping_modal, forms },
                         </tr>
                     ))
                 }
-                    <tr><td colspan="4" className="border-2 border-yellow-500"></td></tr>
+                
                 {
                     forms.map((form, index) => (
                         <tr>

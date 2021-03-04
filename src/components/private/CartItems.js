@@ -10,7 +10,7 @@ function CartItems({ cart: { cart_items, checkout, checked_group }, checkItem ,h
     const history = useHistory();
 
     useEffect(() => {
-        getUserCart();
+        // getUserCart();
     }, [])
 
     return (

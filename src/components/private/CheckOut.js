@@ -12,7 +12,7 @@ function CheckOut({ cart: { cart_items, checkout }, shipping: { default_shipping
     const history = useHistory();
 
     useEffect(() => {
-        getUserCart();
+        // getUserCart();
         getShipping();
     }, [])
 
