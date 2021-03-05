@@ -1,6 +1,7 @@
 import * as TYPES from '../types';
 import { ShippingService } from '../../utils/api.service';
 import { ToastDanger, ToastSuccess } from '../../helpers/toast';
+import { SwalWarning } from '../../helpers/swal';
 
 // Set loading
 export const setLoading = (type = null) => async dispatch => dispatch({ type: TYPES.SET_LOADING, payload: type });
@@ -21,23 +22,28 @@ export const handleInput = (e, index) => async (dispatch, getState) => {
 // Form submit
 export const addShipping = () => async (dispatch, getState)=> {
     
-    let { form: { address, contact } } = getState().shipping;
+    let { forms } = getState().shipping;
 
-    if(address == '' || contact == '')
+    let checkForms = forms.filter(form => {
+        if(form.address === '' || form.contact === ''){
+            return true;
+        }
+    });
+
+    if(checkForms.length > 0)
         return ToastDanger('Address and Contact is required.');
 
     try {
         
         dispatch(setLoading('shipping'));
-        let params = { address, contact };
+
+        let params = { forms };
+        
         let res = await ShippingService.addShipping(params);
 
-        let payload = {
+            let payload = {
             shipping: res.data.details,
-            form: {
-                address: '',
-                contact: ''
-            }
+            forms: [ { address: '', contact: '', is_default: false } ],
         }
 
         dispatch({ type: TYPES.GET_SHIPPING, payload })
@@ -88,4 +94,34 @@ export const getShipping = () => async dispatch => {
         ToastDanger('Something went wrong.');
         console.log(err)
     }
+}
+
+
+// remove shipping confirm
+export const removeShippingWarning = (id) => async dispatch => SwalWarning('Warning!', 'Are you sure to remove shipping detail?', () => dispatch(removeShipping(id)));
+
+// remove shipping detail
+export const removeShipping = (id) => async dispatch => {
+
+    try {
+        
+        dispatch(setLoading('shipping'));
+
+        let res = await ShippingService.removeShipping(id);
+
+        let payload = {
+            shipping: res.data.details,
+            default_shipping: null
+        }
+
+        dispatch({ type: TYPES.GET_SHIPPING, payload });
+        ToastSuccess('Shipping has been removed.')
+        dispatch(setLoading());
+
+    } catch (err) {
+        ToastDanger('Something went wrong.');
+        console.log(err)
+        dispatch(setLoading());
+    }
+
 }
