@@ -30,7 +30,7 @@ export const CartService =  {
 export const ShippingService = {
     getShipping: () => http.get('/shipping'),
     addShipping: (formParams) => http.post('/shipping', formParams),
-    updateShipping: (id) => http.put(`/shipping/${id}`),
+    updateShipping: (id, formParams) => http.put(`/shipping/${id}`, formParams),
     removeShipping: (id) => http.delete(`/shipping/${id}`),
     updateDefault: (id) => http.put(`/shipping/default/${id}`)
 }

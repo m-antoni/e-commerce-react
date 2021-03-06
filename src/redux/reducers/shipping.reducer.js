@@ -3,11 +3,13 @@ import * as TYPES from '../types';
 const initialState = {
     shipping: [],
     default_shipping: null,
+    edit_form: null,
     forms: [
-        { address: '', contact: '', is_default: false }
+        { address: '', contact: '' }
     ],
     loading: null,
-    shipping_modal: false
+    shipping_modal: false,
+    shipping_form: 'close'
 }
 
 const shippingReducer = (state = initialState, action) => {
@@ -33,6 +35,11 @@ const shippingReducer = (state = initialState, action) => {
                 shipping_modal: action.payload
             }
         case TYPES.GET_SHIPPING:
+            return {
+                ...state,
+                ...action.payload
+            }
+        case TYPES.SHIPPING_FORM: 
             return {
                 ...state,
                 ...action.payload

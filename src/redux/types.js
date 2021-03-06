@@ -20,4 +20,5 @@ export const REMOVE_ITEM            = 'REMOVE_ITEM';
 export const GET_SHIPPING           = 'GET_SHIPPING';
 export const ADD_SHIPPING           = 'ADD_SHIPPING';
 export const ADD_FORMS              = 'ADD_FORMS';
+export const SHIPPING_FORM          = 'SHIPPING_FORM';
 

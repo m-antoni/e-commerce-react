@@ -9,14 +9,66 @@ export const setLoading = (type = null) => async dispatch => dispatch({ type: TY
 // Set Modal
 export const setModal = (open = null) => async dispatch => dispatch({ type: TYPES.SET_MODAL, payload: open });
 
-// Form inputs
-export const handleInput = (e, index) => async (dispatch, getState) => {
+// Set Shipping form
+export const shippingForm = (status, edit_form = null) => async dispatch => {
 
-    let { forms } = getState().shipping;
-    let { name, value } = e.target;
-    forms[index][name] = value;
+    let payload = {};
+
+    switch (status) {
+        case 'add':
+            payload = { shipping_form: status }
+            break;
+        case 'edit':
+            payload = { shipping_form: status, edit_form }
+            break;
+        default:
+            payload = {
+                forms: [
+                    { address: '', contact: '' }
+                ],
+                shipping_form: status
+            };
+            break;
+    }
+
+    dispatch({ type: TYPES.SHIPPING_FORM, payload });
+}
+
+// Form inputs
+export const handleInput = (e, index = null, type = null) => async (dispatch, getState) => {
+
+    let { name, value, checked } = e.target;
+    let { forms, shipping, edit_form } = getState().shipping;
+    let payload;
     
-    dispatch({ type: TYPES.HANDLE_INPUT, payload: forms });
+
+    switch (type) {
+        case 'is_default':
+             // NOTE: index value is _id here
+            shipping.map((ship, i) => {
+                ship['is_default'] = ship._id === index ? checked : !checked;
+            });
+            
+            dispatch(updateDefault(index));
+            payload = { shipping };
+
+            break;  
+        case 'edit':
+            edit_form[name] = value;
+            payload = { edit_form };
+
+            break;
+        case 'add':
+            forms[index][name] = value;
+            payload = { forms };
+
+            break;
+        default:
+            break;
+    }
+
+
+    dispatch({ type: TYPES.HANDLE_INPUT, payload });
 }
 
 // Form submit
@@ -36,18 +88,17 @@ export const addShipping = () => async (dispatch, getState)=> {
     try {
         
         dispatch(setLoading('shipping'));
-
         let params = { forms };
-        
         let res = await ShippingService.addShipping(params);
 
-            let payload = {
+        let payload = {
             shipping: res.data.details,
-            forms: [ { address: '', contact: '', is_default: false } ],
+            forms: [ { address: '', contact: '' } ],
+            shipping_form: false,
         }
 
         dispatch({ type: TYPES.GET_SHIPPING, payload })
-        ToastSuccess('Shipping Details Added Succcessfully');
+        ToastSuccess('Shipping Added Succcessfully');
         dispatch(setLoading());
     } catch (err) {
         console.log(err);
@@ -81,11 +132,8 @@ export const getShipping = () => async dispatch => {
         
         let res = await ShippingService.getShipping();
 
-        let is_default = res.data.shipping.details.filter(ship => ship.is_default === true);
-
         let payload = {
-            shipping: res.data.shipping.details,
-            default_shipping: is_default[0] ? is_default[0] : null
+            shipping: res.data.shipping ? res.data.shipping.details : [],
         }
 
         dispatch({ type: TYPES.GET_SHIPPING, payload })
@@ -104,14 +152,12 @@ export const removeShippingWarning = (id) => async dispatch => SwalWarning('Warn
 export const removeShipping = (id) => async dispatch => {
 
     try {
-        
         dispatch(setLoading('shipping'));
 
         let res = await ShippingService.removeShipping(id);
 
         let payload = {
-            shipping: res.data.details,
-            default_shipping: null
+            shipping: res.data.details
         }
 
         dispatch({ type: TYPES.GET_SHIPPING, payload });
@@ -123,5 +169,60 @@ export const removeShipping = (id) => async dispatch => {
         console.log(err)
         dispatch(setLoading());
     }
-
 }
+ 
+// Update Default 
+export const updateDefault = (id) => async dispatch => {
+    try {
+        let res = await ShippingService.updateDefault(id);
+        
+        let payload = {
+            shipping: res.data.details
+        }
+
+        dispatch({ type: TYPES.GET_SHIPPING, payload });
+        ToastSuccess('Default Shipping has been updated.')
+
+    } catch (err) {
+        ToastDanger('Something went wrong.');
+        console.log(err)
+    }
+}
+
+
+// Update Single Shipping 
+export const updateShipping = () => async (dispatch, getState) => {
+    
+    let { edit_form } = getState().shipping;
+
+    if(edit_form['address'] === '' || edit_form['contact'] === '')
+        return ToastDanger('Address and Contact is required.');
+
+    try {
+        
+        dispatch(setLoading('shipping'));
+     
+        let params = {
+            _id: edit_form['_id'],
+            address: edit_form['address'],
+            contact: edit_form['contact']
+        }
+
+        let res = await ShippingService.updateShipping(params._id, params);
+
+        let payload = {
+            shipping: res.data.details,
+            shipping_form: 'close'
+        }
+
+        dispatch({ type: TYPES.GET_SHIPPING, payload });
+        ToastSuccess('Shipping Updated Successfully.')
+        dispatch(setLoading());
+
+    } catch (err) {
+        ToastDanger('Something went wrong.');
+        dispatch(setLoading());
+        console.log(err)
+    }
+}
+
