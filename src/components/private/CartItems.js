@@ -1,17 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Spinner } from '../layouts/Spinner';
 import { getUserCart, handleCart, checkItem, checkedGroup, removeWarning } from '../../redux/actions/cart.actions';
 import { priceFormat } from '../../helpers/globals';
 import { useHistory } from 'react-router-dom';
+import Paypal from './Paypal';
 
 function CartItems({ cart: { cart_items, checkout, checked_group }, checkItem ,handleCart, getUserCart, checkedGroup, removeWarning }) {
 
     const history = useHistory();
 
-    useEffect(() => {
-        // getUserCart();
-    }, [])
+    const [isCheckOut, setCheckOut] = useState(false);
 
     return (
         <div className="container mx-auto md:px-20 p-5 pt-32">
@@ -59,13 +58,7 @@ function CartItems({ cart: { cart_items, checkout, checked_group }, checkItem ,h
                 </div>
                 
                 <div className="col-span-4">
-                    <div className="bg-white py-5 px-3 w-full">
-                        <div className="flex">
-                            <svg className="w-6 h-6 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-                            <div className="cursor-pointer hover:text-yellow-900 hover:underline font-semibold">Bagong Silang Caloocan City...</div>
-                        </div>
-                        <div className="border-2 text-yellow-900 my-2"></div>
-
+                    <div className="bg-white py-5 px-3 w-96">
                         <h1 className="mb-2 font-bold">Order Summary</h1>
                         <div className="flex justify-between mb-1">
                             <div className="font-medium text-sm text-gray-500">Subtotal ({ checkout ? checkout.items.length : 0} Items)</div>
@@ -78,13 +71,32 @@ function CartItems({ cart: { cart_items, checkout, checked_group }, checkItem ,h
 
                         <div className="border-2 text-yellow-900 my-2"></div>
 
-                        <div className="flex justify-between mb-10">
+                        <div className="flex justify-between">
                             <div className="font-medium text-sm">Grand Total</div>
                             <div className="font-bold text-yellow-900">$ { checkout ? priceFormat(checkout.total) : '0.00'}</div>
                         </div>
+                    </div>
+
+                    <div className="bg-white py-5 px-3 w-96 mt-5">
                         {
-                            checkout.items.length > 0 ? <button onClick={() => history.push('/home/user/check-out')} className="text-white bg-yellow-500 hover:bg-black py-2 px-3 w-full font-semibold">PROCEED TO CHECKOUT</button> :
-                            <button className="text-white bg-gray-500 py-2 px-3 w-full font-semibold" disabled><s>PROCEED TO CHECKOUT</s></button>
+                            checkout.items.length > 0  && 
+                                <button onClick={() => setCheckOut(!isCheckOut)} className="flex justify-center text-white bg-yellow-700 hover:bg-yellow-900 py-3 px-3 w-full font-semibold align-text-toptext-center rounded">
+                                    PROCEED TO CHECKOUT
+                                </button>
+                        }
+
+                        {
+                            isCheckOut &&  
+                            <div className="mt-10">
+                                <div className="mb-2 font-bold text-sm text-gray-700 text-center">Choose your Payment Method</div>
+                                <div className="border-2 text-yellow-900 my-2"></div>
+
+                                <button onClick={() => history.push('/home/user/cash-on-delivery')} className="flex justify-center text-white bg-blue-500 hover:bg-blue-600 mb-2 py-3 px-3 w-full font-semibold align-text-toptext-center rounded">
+                                    <svg className="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" /><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z" /></svg> 
+                                    <div>CASH ON DELIVERY</div>
+                                </button>
+                                <Paypal/>
+                            </div> 
                         }
                     </div>
                 </div>

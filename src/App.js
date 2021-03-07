@@ -18,7 +18,7 @@ import PageNotFound from './components/public/PageNotFound';
 import Navbar from './components/layouts/Navbar';
 import ProductView from './components/private/ProductView';
 import CartItems from './components/private/CartItems';
-import CheckOut from './components/private/CheckOut';
+import CashOnDelivery from './components/private/CashOnDelivery';
 
 
 function App() {
@@ -43,7 +43,7 @@ function App() {
                 <PrivateRoute path="/home" exact component={Home}/>
                 <PrivateRoute path="/home/products/:id" exact component={ProductView}/>
                 <PrivateRoute path="/home/user/cart" exact component={CartItems}/>
-                <PrivateRoute path="/home/user/check-out" exact component={CheckOut}/>
+                <PrivateRoute path="/home/user/cash-on-delivery" exact component={CashOnDelivery}/>
                 <PublicRoute component={PageNotFound} />
               </Switch>
             </Fragment>
