@@ -22,15 +22,15 @@ function Login({ auth: { email, password, loading, user_data: { isAuthenticated 
                     loading === 'auth' ? <div className="my-20"><Spinner/></div> : 
                     <>
                         <div className="py-2">
-                            <div className="text-gray-900 mb-2">Email:</div>
+                            <div className="font-medium text-sm text-gray-500 mb-2">Email:</div>
                             <input name="email" value={email} onChange={handleInputChange} className="shadow p-2 w-full focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded" type="email" placeholder="Enter Email"/>
                         </div>
                         <div className="py-2">
-                            <div className="text-gray-900 mb-2">Password:</div>
+                            <div className="font-medium text-sm text-gray-500 mb-2">Password:</div>
                             <input name="password" value={password} onChange={handleInputChange} className="shadow p-2 w-full focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded" type="password" placeholder="Enter Password"/>
                         </div>
                         <div className="mt-5">
-                            <button onClick={authLogin} className=" text-white bg-yellow-500 hover:bg-black py-2 px-3 w-full">Login </button>
+                            <button onClick={authLogin} className=" text-white font-bold bg-yellow-500 hover:bg-black py-3 px-3 rounded w-full">Login </button>
                         </div>
                     </>
                 }

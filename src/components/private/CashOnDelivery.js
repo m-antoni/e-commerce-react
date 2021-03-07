@@ -83,14 +83,14 @@ function CashOnDelivery({ cart: { checkout }, shipping: { default_shipping, ship
 
                         {
                             default_shipping !== null ? 
-                            <button className="text-white bg-blue-500 hover:bg-blue-600 py-2 px-3 w-full font-semibold align-text-toptext-center">PLACE ORDER</button>
+                            <button className="text-white bg-blue-500 hover:bg-blue-600 py-3 px-3 w-full font-semibold align-text-toptext-center rounded">PLACE ORDER</button>
                             :
                             <>
                                 <div className="font-bold text-sm text-red-500 mb-3 text-center">You dont have shipping details <span onClick={() => setModal(true)} className="text-blue-500 hover:text-blue-500 cursor-pointer">Add Here.</span></div>
-                                <button className="text-white bg-gray-500 py-2 px-3 w-full font-semibold mb-2" disabled><s>PLACE ORDER</s></button>
+                                <button className="text-white bg-gray-500 py-3 px-3 w-full font-semibold mb-2 rounded" disabled><s>PLACE ORDER</s></button>
                             </>
                         }
-                        <button onClick={() => history.goBack()} className="text-white bg-red-500 hover:bg-red-900 py-2 px-3 w-full font-semibold text-center mt-2">CANCEL</button>
+                        <button onClick={() => history.push('/home/user/cart')} className="text-white bg-red-500 hover:bg-red-900 py-3 px-3 w-full font-semibold text-center mt-2 rounded">CANCEL</button>
                     </div>
                 </div>
             </div>

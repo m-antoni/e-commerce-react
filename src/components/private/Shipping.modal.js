@@ -64,7 +64,7 @@ function ShippingModal({ shipping: { shipping, shipping_form, shipping_modal }, 
                                 }
                                 <tr>
                                     <td colspan="4" className="px-10 py-4 text-right text-sm font-medium" width="10%">
-                                        <button onClick={() => shippingForm('add')} className="text-white py-2 px-6 bg-yellow-500 hover:bg-yellow-600 font-semibold"> ADD SHIPPING </button>
+                                        <button onClick={() => shippingForm('add')} className="text-white py-3 px-3 bg-yellow-500 hover:bg-yellow-600 font-semibold rounded"> ADD SHIPPING </button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -73,7 +73,7 @@ function ShippingModal({ shipping: { shipping, shipping_form, shipping_modal }, 
                     : 
                     <div className="text-center my-10 px-20">
                         <h4 className="text-gray-500 mb-10 font-bold text-lg">You have no shipping details...</h4>
-                        <button onClick={() => shippingForm('add')} className="text-white py-2 px-6 bg-yellow-500 hover:bg-yellow-600 font-semibold"> ADD NEW SHIPPING </button>
+                        <button onClick={() => shippingForm('add')} className="text-white py-3 px-3 bg-yellow-500 hover:bg-yellow-600 font-semibold rounded"> ADD NEW SHIPPING </button>
                     </div>
             }
         </Modal>

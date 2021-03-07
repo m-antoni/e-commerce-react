@@ -24,26 +24,26 @@ function Register({ auth: { name, email, password, confirm_password, loading, us
                     loading === 'auth' ? <div className="my-20"><Spinner/></div> : 
                     <>
                         <div className="py-2">
-                            <div className=" text-gray-900 mb-2">Name:</div>
+                            <div className="font-medium text-sm text-gray-500 mb-2">Name:</div>
                             <input name="name" value={name} onChange={handleInputChange} className="shadow p-2 w-full focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded" type="text" placeholder="Enter Name"/>
                         </div>
                         <div className="py-2">
-                            <div className=" text-gray-900 mb-2">Email:</div>
+                            <div className="font-medium text-sm text-gray-500 mb-2">Email:</div>
                             <input name="email" value={email} onChange={handleInputChange} className="shadow p-2 w-full focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded" type="text" placeholder="Enter Email"/>
                         </div>
 
                         <div className="py-2">
-                            <div className="text-gray-900 mb-2">Password:</div>
+                            <div className="font-medium text-sm text-gray-500 mb-2">Password:</div>
                             <input name="password" value={password} onChange={handleInputChange} className="shadow p-2 w-full focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded" type="password" placeholder="Enter Password"/>
                         </div>
 
                         <div className="py-2">
-                            <div className="text-gray-600 mb-2">Confirm Password:</div>
+                            <div className="font-medium text-sm text-gray-500 mb-2">Confirm Password:</div>
                             <input name="confirm_password" value={confirm_password} onChange={handleInputChange} className="shadow p-2 w-full focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded" type="password" placeholder="Enter Confirm Password"/>
                         </div>
 
                         <div className="mt-5">
-                            <button onClick={authRegister} className="py-2 px-3 text-white bg-yellow-500 hover:bg-black w-full btn-register">Register</button>
+                            <button onClick={authRegister} className="py-3 px-3 rounded font-bold text-white bg-yellow-500 hover:bg-black w-full btn-register">Register</button>
                         </div>
                     </>
                 }
