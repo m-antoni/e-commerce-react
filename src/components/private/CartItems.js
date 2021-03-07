@@ -37,7 +37,7 @@ function CartItems({ cart: { cart_items, checkout, checked_group }, checkItem ,h
                                         <img className="w-10 self-center" src={item.image}/>
                                         <div className="w-1/2 flex flex-col self-center">
                                             <label for={item.id} className="font-bold text-lg cursor-pointer">{item.title}</label>
-                                            <p className="text-sm text-gray-500">{item.description.slice(0, 100) + (item.title.length > 100 ? "..." : "...")}</p>
+                                            <p className="text-sm text-gray-500">{item.description.slice(0, 100) + (item.description.length > 100 ? "..." : "...")}</p>
                                         </div>
                                         <div className="flex self-center">
                                             <p className="font-bold text-lg text-yellow-900"><span className="font-medium text-sm text-gray-500">Price: </span>&#36; {priceFormat(item.price)}</p>

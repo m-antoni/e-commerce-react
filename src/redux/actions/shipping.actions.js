@@ -132,8 +132,11 @@ export const getShipping = () => async dispatch => {
         
         let res = await ShippingService.getShipping();
 
+        let default_shipping = res.data.shipping.details.filter(fil => fil.is_default === true);
+
         let payload = {
             shipping: res.data.shipping ? res.data.shipping.details : [],
+            default_shipping: default_shipping.length > 0 ? default_shipping[0] : null
         }
 
         dispatch({ type: TYPES.GET_SHIPPING, payload })
@@ -155,9 +158,11 @@ export const removeShipping = (id) => async dispatch => {
         dispatch(setLoading('shipping'));
 
         let res = await ShippingService.removeShipping(id);
+        let default_shipping = res.data.details.filter(fil => fil.is_default === true);
 
         let payload = {
-            shipping: res.data.details
+            shipping: res.data.details,
+            default_shipping: default_shipping.length > 0 ? default_shipping[0] : null
         }
 
         dispatch({ type: TYPES.GET_SHIPPING, payload });
@@ -175,9 +180,11 @@ export const removeShipping = (id) => async dispatch => {
 export const updateDefault = (id) => async dispatch => {
     try {
         let res = await ShippingService.updateDefault(id);
-        
+        let default_shipping = res.data.details.filter(fil => fil.is_default === true);
+
         let payload = {
-            shipping: res.data.details
+            shipping: res.data.details,
+            default_shipping: default_shipping.length > 0 ? default_shipping[0] : null
         }
 
         dispatch({ type: TYPES.GET_SHIPPING, payload });
@@ -210,9 +217,12 @@ export const updateShipping = () => async (dispatch, getState) => {
 
         let res = await ShippingService.updateShipping(params._id, params);
 
+        let default_shipping = res.data.details.filter(fil => fil.is_default === true);
+
         let payload = {
             shipping: res.data.details,
-            shipping_form: 'close'
+            shipping_form: 'close',
+            default_shipping: default_shipping.length > 0 ? default_shipping[0] : null
         }
 
         dispatch({ type: TYPES.GET_SHIPPING, payload });
