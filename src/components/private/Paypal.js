@@ -26,7 +26,7 @@ function Paypal({ cart: { checkout } }) {
             },
             onApprove: async (data, actions) => {
                 const order = await actions.order.capture();
-                // paymentSuccess(order)
+                paymentSuccess(order)
                 console.log(order);
             },
             onError: err => {
@@ -41,7 +41,7 @@ function Paypal({ cart: { checkout } }) {
         transaction(data);
         history.push('/home/user/payment-sucess');
     }
-    
+
     return ( 
         <div ref={paypalRef} />
     )
