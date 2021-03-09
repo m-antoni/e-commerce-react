@@ -1,30 +1,32 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { connect } from 'react-redux';
-import { SwalSuccess } from '../../helpers/swal';
+import { useHistory } from 'react-router';
 import { priceFormat } from '../../helpers/globals';
+import { transaction } from '../../redux/actions/transaction.actions';
 
 function Paypal({ cart: { checkout } }) {
     
+    const history = useHistory();
     const paypalRef = useRef();
 
     useEffect(() => {
         window.paypal.Buttons({
             createOrder: (data, actions) => {
-            return actions.order.create({
-                purchase_units: [
-                    {
-                        description: 'E-Shop Online Payment',
-                        amount: {
-                            currency_code: 'USD',
-                            value: priceFormat(checkout.total),
+                return actions.order.create({
+                    purchase_units: [
+                        {
+                            description: 'E-Shop Online Payment',
+                            amount: {
+                                currency_code: 'USD',
+                                value: priceFormat(checkout.total),
+                            },
                         },
-                    },
-                ],
-            });
+                    ],
+                });
             },
             onApprove: async (data, actions) => {
                 const order = await actions.order.capture();
-                SwalSuccess('Payment has been made Successfully.')
+                // paymentSuccess(order)
                 console.log(order);
             },
             onError: err => {
@@ -35,6 +37,11 @@ function Paypal({ cart: { checkout } }) {
     },[])
 
 
+    const paymentSuccess = (data)  => {
+        transaction(data);
+        history.push('/home/user/payment-sucess');
+    }
+    
     return ( 
         <div ref={paypalRef} />
     )

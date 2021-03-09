@@ -7,6 +7,7 @@ import authReducer from './auth.reducer';
 import cartReducer from './cart.reducer';
 import productReducer from './product.reducer';
 import shippingReducer from './shipping.reducer';
+import transactionReducer from './transaction.reducer';
 
 // persist config 
 const persistConfig = {
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
     auth: authReducer,
     product: productReducer,
     cart: cartReducer,
-    shipping: shippingReducer
+    shipping: shippingReducer,
+    transaction: transactionReducer
 });
 
 export default persistReducer(persistConfig, rootReducer);

@@ -20,6 +20,7 @@ import ProductView from './components/private/ProductView';
 import CartItems from './components/private/CartItems';
 import CashOnDelivery from './components/private/CashOnDelivery';
 import Checkout from './components/private/Checkout';
+import PaymentSuccess from './components/private/PaymentSuccess';
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
                 <PrivateRoute path="/home/user/cart" exact component={CartItems}/>
                 <PrivateRoute path="/home/user/check-out" exact component={Checkout}/>
                 <PrivateRoute path="/home/user/cash-on-delivery" exact component={CashOnDelivery}/>
+                <PrivateRoute path="/home/user/payment-sucess" exact component={PaymentSuccess}/>
                 
                 <PublicRoute component={PageNotFound} />
               </Switch>
