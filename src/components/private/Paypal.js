@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
-import { priceFormat } from '../../helpers/globals';
 import { transaction } from '../../redux/actions/transaction.actions';
+import { PayPalButton } from "react-paypal-button-v2";
 
-function Paypal({ cart: { checkout } }) {
+function Paypal({ total, transaction}) {
     
     const history = useHistory();
-    const paypalRef = useRef();
+    const paypal = useRef();
 
     useEffect(() => {
         window.paypal.Buttons({
@@ -18,7 +18,7 @@ function Paypal({ cart: { checkout } }) {
                             description: 'E-Shop Online Payment',
                             amount: {
                                 currency_code: 'USD',
-                                value: priceFormat(checkout.total),
+                                value: 100,
                             },
                         },
                     ],
@@ -33,9 +33,8 @@ function Paypal({ cart: { checkout } }) {
                 console.error(err);
             },
         })
-        .render(paypalRef.current);
-    },[])
-
+        .render(paypal.current);
+    },[total])
 
     const paymentSuccess = (data)  => {
         transaction(data);
@@ -43,7 +42,9 @@ function Paypal({ cart: { checkout } }) {
     }
 
     return ( 
-        <div ref={paypalRef} />
+        <div>
+            <div ref={paypal} />
+        </div>
     )
 }
 
@@ -52,4 +53,4 @@ const mapStateToProps = state => ({
     cart: state.cart
 })
 
-export default connect(mapStateToProps, { })(Paypal);
+export default connect(mapStateToProps, { transaction })(Paypal);
