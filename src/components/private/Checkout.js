@@ -1,14 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Paypal from './Paypal';
-import { priceFormat } from '../../helpers/globals';
 
-function Checkout({ cart: { checkout } }) {
+function Checkout() {
 
     const history = useHistory();
-
-    const totalPrice = priceFormat(checkout.total);
 
     return (
         <div className="container mx-auto md:px-20 p-5 pt-32">
@@ -22,7 +19,7 @@ function Checkout({ cart: { checkout } }) {
                         <button onClick={() => history.push('/home/user/cash-on-delivery')} className="flex justify-center text-white bg-blue-500 hover:bg-blue-600 py-3 px-3 my-3 w-full font-semibold align-text-toptext-center rounded">
                             CASH ON DELIVERY
                         </button>
-                        <Paypal total={totalPrice}/>
+                        <Paypal/>
                     </div>
                 </div>
             </div>
@@ -31,7 +28,7 @@ function Checkout({ cart: { checkout } }) {
 }
 
 const mapStateToProps = state => ({
-    cart: state.cart
+    //
 })
 
 export default connect(mapStateToProps, { })(Checkout);

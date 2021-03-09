@@ -3,7 +3,8 @@ import * as TYPES from '../types';
 const initialState = {
     transactions: [],
     payment_status: false,
-    payment_data: {}
+    payment_data: {},
+    loading: null
 }
 
 const transactionReducer = (state = initialState, action) => {

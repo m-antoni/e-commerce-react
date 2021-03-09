@@ -1,15 +1,19 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
+import { priceFormat } from '../../helpers/globals';
 import { transaction } from '../../redux/actions/transaction.actions';
-import { PayPalButton } from "react-paypal-button-v2";
 
-function Paypal({ total, transaction}) {
+function Paypal({ cart: { checkout }, transaction , setLoading}) {
     
     const history = useHistory();
     const paypal = useRef();
 
     useEffect(() => {
+
+        // Note: need to remove comma for passing value
+        const price = priceFormat(checkout.total).split(",").join("");
+
         window.paypal.Buttons({
             createOrder: (data, actions) => {
                 return actions.order.create({
@@ -18,7 +22,7 @@ function Paypal({ total, transaction}) {
                             description: 'E-Shop Online Payment',
                             amount: {
                                 currency_code: 'USD',
-                                value: 100,
+                                value: price,
                             },
                         },
                     ],
@@ -34,7 +38,8 @@ function Paypal({ total, transaction}) {
             },
         })
         .render(paypal.current);
-    },[total])
+
+    },[checkout.total])
 
     const paymentSuccess = (data)  => {
         transaction(data);
@@ -42,9 +47,9 @@ function Paypal({ total, transaction}) {
     }
 
     return ( 
-        <div>
+       <div>
             <div ref={paypal} />
-        </div>
+       </div>
     )
 }
 
@@ -54,3 +59,4 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, { transaction })(Paypal);
+

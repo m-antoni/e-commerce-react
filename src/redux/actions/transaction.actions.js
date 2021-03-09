@@ -5,7 +5,7 @@ export const setLoading = (type = null) => async dispatch => dispatch({ type: TY
 
 // Transaction
 export const transaction = (data) => async dispatch => {
-
+    
     let payload = {
         payment_data: {
             amount: data.purchase_units[0]['amount']['value'],
@@ -16,7 +16,7 @@ export const transaction = (data) => async dispatch => {
         payment_status: true
     }
 
-    dispatch({ type: TYPES.TRANSACTION_SUCCESS, payload });   
+    dispatch({ type: TYPES.TRANSACTION_SUCCESS, payload });
 }
 
 // Clear Transaction
