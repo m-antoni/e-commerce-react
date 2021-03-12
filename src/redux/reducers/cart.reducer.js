@@ -60,6 +60,11 @@ const cartReducer = (state = initialState, action) => {
                     total: 0.00
                 },
             }
+        case TYPES.CLEAR_CHECKOUT:
+            return {
+                ...state,
+                ...action.payload
+            }
         default:
             return state;
     }

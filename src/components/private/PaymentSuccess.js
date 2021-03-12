@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect, useHistory } from 'react-router';
 import { clearTransaction } from '../../redux/actions/transaction.actions';
 
-function PaymentSuccess({ transaction: { payment_status, payment_data: { amount, email, transaction_no } }, clearTransaction }) {
+function PaymentSuccess({ transaction: { payment_status, payment_data: { amount, email, transaction_code, payment_type } }, clearTransaction }) {
     
     const history = useHistory();
 
@@ -26,8 +26,12 @@ function PaymentSuccess({ transaction: { payment_status, payment_data: { amount,
                             <h4 className="font-bold text-3xl my-3 text-center text-green-500">Payment Successful</h4>
                         </div>
                         <div className="my-2 text-center">
-                            <p className="font-medium text-md text-gray-500">The amount was paid <span className="text-blue-500 font-bold">$ {amount}</span> from {email}</p>
-                            <p className="font-medium text-md text-gray-500">Your Transaction No. <span className="text-blue-500 font-bold">{transaction_no}</span></p>
+                            {
+                                payment_type === 'paypal' ? <p className="font-medium text-md text-gray-500">The amount was paid <span className="text-blue-500 font-bold">$ {amount}</span> from {email}</p>
+                                : <p className="font-medium text-md text-gray-500">Order has been place, please prepare cash of <span className="text-blue-500 font-bold">$ {amount}</span></p>
+                            }
+                            
+                            <p className="font-medium text-md text-gray-500 mt-2">Your Transaction Code: <span className="text-blue-500 font-bold">{transaction_code}</span></p>
                         </div>
                         <div className="flex">
                             <button onClick={goBack} className="text-white bg-blue-500 hover:bg-blue-600 py-3 px-3 mt-5 w-full font-semibold rounded">RETURN TO HOMEPAGE</button>

@@ -8,6 +8,8 @@ function CartItems({ cart: { cart_items, checkout, checked_group }, checkItem ,h
 
     const history = useHistory();
 
+    cart_items.length === 0 && history.push('/home');
+
     return (
         <div className="container mx-auto md:px-20 p-5 pt-32">
             <div className="grid grid-flow-col gap-x-8">
@@ -25,7 +27,7 @@ function CartItems({ cart: { cart_items, checkout, checked_group }, checkItem ,h
                     </div>
                     {
                         cart_items.length > 0  ? 
-                            cart_items.map(item => (
+                            cart_items.map((item, i) => (
                                 <div className="py-5 bg-white w-full mx-auto mb-5"> 
                                     <div className="flex md:flex-row flex-col px-10 bg-white justify-between">
                                         <input id={item.id} onChange={e => checkItem(e, item)} type="checkbox" className="self-start" name="checked_item" checked={item.checked}/>

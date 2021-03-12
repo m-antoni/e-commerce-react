@@ -34,3 +34,11 @@ export const ShippingService = {
     removeShipping: (id) => http.delete(`/shipping/${id}`),
     updateDefault: (id) => http.put(`/shipping/default/${id}`)
 }
+
+// Transaction
+export const TransactionService = {
+    getTransaction: () => http.get('/transaction'),
+    addTransaction: (formParams) => http.post('/transaction', formParams),
+    singleTransaction: (id) => http.get(`/transaction/${id}`),
+    removeTransaction: (id) => http.delete(`/transaction/${id}`)
+}

@@ -42,7 +42,7 @@ function Paypal({ cart: { checkout }, transaction , setLoading}) {
     },[checkout.total])
 
     const paymentSuccess = (data)  => {
-        transaction(data);
+        transaction(data, 'paypal');
         history.push('/home/user/payment-sucess');
     }
 

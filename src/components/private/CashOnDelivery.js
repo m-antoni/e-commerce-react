@@ -6,14 +6,20 @@ import { priceFormat } from '../../helpers/globals';
 import { useHistory } from 'react-router-dom';
 import { getShipping, setModal } from '../../redux/actions/shipping.actions';
 import ShippingModal from './Shipping.modal';
+import { transaction } from '../../redux/actions/transaction.actions';
 
-function CashOnDelivery({ cart: { checkout }, shipping: { default_shipping, shipping, shipping_modal }, getUserCart, getShipping, setModal }) {
+function CashOnDelivery({ cart: { checkout }, shipping: { default_shipping, shipping_modal }, getShipping, setModal, transaction }) {
 
     const history = useHistory();
 
     useEffect(() => {
         getShipping();
     }, [])
+
+    const placeOrder = ()  => {
+        transaction(null, 'cod');
+        history.push('/home/user/payment-sucess');
+    }
 
     return (
         <div className="container mx-auto md:px-20 p-5 pt-32">
@@ -83,7 +89,7 @@ function CashOnDelivery({ cart: { checkout }, shipping: { default_shipping, ship
 
                         {
                             default_shipping !== null ? 
-                            <button className="text-white bg-blue-500 hover:bg-blue-600 py-3 px-3 w-full font-semibold align-text-toptext-center rounded">PLACE ORDER</button>
+                            <button onClick={placeOrder} className="text-white bg-blue-500 hover:bg-blue-600 py-3 px-3 w-full font-semibold align-text-toptext-center rounded">PLACE ORDER</button>
                             :
                             <>
                                 <div className="font-bold text-sm text-red-500 mb-3 text-center">You dont have shipping details <span onClick={() => setModal(true)} className="text-blue-500 hover:text-blue-500 cursor-pointer">Add Here.</span></div>
@@ -106,4 +112,4 @@ const mapStateToProps = state => ({
     shipping: state.shipping
 })
 
-export default connect(mapStateToProps, { getUserCart, getShipping, setModal })(CashOnDelivery);
+export default connect(mapStateToProps, { getUserCart, getShipping, setModal, transaction })(CashOnDelivery);

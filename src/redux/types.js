@@ -17,6 +17,8 @@ export const CLEAR_CART             = 'CLEAR_CART';
 export const GET_USER_CART          = 'GET_USER_CART';
 export const CHECKED_ITEM           = 'CHECKED_ITEM';
 export const REMOVE_ITEM            = 'REMOVE_ITEM';
+export const CLEAR_CHECKOUT         = 'CLEAR_CHECKOUT';
+
 
 // SHIPPING
 export const GET_SHIPPING           = 'GET_SHIPPING';
