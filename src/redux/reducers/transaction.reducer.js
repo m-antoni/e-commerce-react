@@ -14,6 +14,11 @@ const transactionReducer = (state = initialState, action) => {
                 ...state,
                 loading: action.payload
             }
+        case TYPES.GET_TRANSACTION:
+            return {
+                ...state,
+                ...action.payload
+            }
         case TYPES.TRANSACTION_SUCCESS:
             return {
                 ...state,

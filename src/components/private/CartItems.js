@@ -76,7 +76,7 @@ function CartItems({ cart: { cart_items, checkout, checked_group }, checkItem ,h
 
                         {  
                             checkout.items.length > 0 &&  
-                            <button onClick={() => history.push('/home/user/check-out')} className="flex justify-center text-white bg-yellow-500 hover:bg-yellow-600 py-3 px-3 mt-3 w-full font-semibold align-text-toptext-center rounded">
+                            <button onClick={() => history.push('/home/checkout')} className="flex justify-center text-white bg-yellow-500 hover:bg-yellow-600 py-3 px-3 mt-3 w-full font-semibold align-text-toptext-center rounded">
                                 PROCEED TO CHECKOUT
                             </button>
                         }

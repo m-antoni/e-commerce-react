@@ -91,10 +91,13 @@ export const addShipping = () => async (dispatch, getState)=> {
         let params = { forms };
         let res = await ShippingService.addShipping(params);
 
+        let hasDefault = res.data.details.filter(obj => obj.is_default === true);
+        
         let payload = {
             shipping: res.data.details,
             forms: [ { address: '', contact: '' } ],
             shipping_form: false,
+            default_shipping: hasDefault.length > 0 ? res.data.details[0] : null
         }
 
         dispatch({ type: TYPES.GET_SHIPPING, payload })
@@ -132,10 +135,10 @@ export const getShipping = () => async dispatch => {
         
         let res = await ShippingService.getShipping();
 
-        let default_shipping = res.data.shipping.details.filter(fil => fil.is_default === true);
+        let default_shipping = res.data.shipping !== null ? res.data.shipping.details.filter(fil => fil.is_default === true) : [];
 
         let payload = {
-            shipping: res.data.shipping ? res.data.shipping.details : [],
+            shipping: res.data.shipping !== null ? res.data.shipping.details : [],
             default_shipping: default_shipping.length > 0 ? default_shipping[0] : null
         }
 

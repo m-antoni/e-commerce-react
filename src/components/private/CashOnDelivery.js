@@ -18,7 +18,7 @@ function CashOnDelivery({ cart: { checkout }, shipping: { default_shipping, ship
 
     const placeOrder = ()  => {
         transaction(null, 'cod');
-        history.push('/home/user/payment-sucess');
+        history.push('/home/checkout/payment-sucess');
     }
 
     return (
@@ -96,7 +96,7 @@ function CashOnDelivery({ cart: { checkout }, shipping: { default_shipping, ship
                                 <button className="text-white bg-gray-500 py-3 px-3 w-full font-semibold mb-2 rounded" disabled><s>PLACE ORDER</s></button>
                             </>
                         }
-                        <button onClick={() => history.push('/home/user/cart')} className="text-white bg-red-500 hover:bg-red-900 py-3 px-3 w-full font-semibold text-center mt-2 rounded">CANCEL</button>
+                        <button onClick={() => history.push('/home/cart')} className="text-white bg-red-500 hover:bg-red-900 py-3 px-3 w-full font-semibold text-center mt-2 rounded">CANCEL</button>
                     </div>
                 </div>
             </div>

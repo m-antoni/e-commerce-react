@@ -46,12 +46,31 @@ export const transaction = (data, type) => async (dispatch, getState) => {
 export const addTransaction = params => async dispatch => {
     
     try {
-        const res = await TransactionService.addTransaction(params);
+        
+        await TransactionService.addTransaction(params);
 
-        console.log(res);
     } catch (err) {
         console.log(err);
         ToastDanger('Something went wrong.');
     }
 }
 
+
+// Get Transactions
+export const getTransaction = () => async dispatch => {
+    try {
+        
+        const res = await TransactionService.getTransaction();
+
+        console.log(res);
+        const payload = {
+            transactions: res.data.transactions
+        }
+
+        dispatch({ type: TYPES.GET_TRANSACTION, payload });
+
+    } catch (err) {
+        console.log(err);
+        ToastDanger('Something went wrong.');
+    }
+}

@@ -15,7 +15,7 @@ function Checkout() {
                         <div className="flex flex-col">
                             <h4 className="font-bold text-2xl my-3 text-center text-gray-500">Choose Your Payment Method</h4>
                         </div>
-                        <button onClick={() => history.push('/home/user/cash-on-delivery')} className="flex justify-center text-white bg-blue-500 hover:bg-blue-600 py-3 px-3 my-3 w-full font-semibold align-text-toptext-center rounded">
+                        <button onClick={() => history.push('/home/checkout/cash-on-delivery')} className="flex justify-center text-white bg-blue-500 hover:bg-blue-600 py-3 px-3 my-3 w-full font-semibold align-text-toptext-center rounded">
                             CASH ON DELIVERY
                         </button>
                         <Paypal/>
