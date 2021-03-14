@@ -1,39 +1,38 @@
 import * as TYPES from '../types';
 
 const initialState = {
-    transactions: [],
-    total_amount: 0,
-    payment_status: false,
-    payment_data: {},
+    fakestore: [],
+    single_fakestore: null,
+    search: '',
     loading: null
 }
 
-const transactionReducer = (state = initialState, action) => {
+const fakeStoreReducer = (state = initialState, action) => {
     switch (action.type) {
         case TYPES.SET_LOADING:
             return {
                 ...state,
                 loading: action.payload
             }
-        case TYPES.GET_TRANSACTION:
+        case TYPES.SEARCH_FAKE_STORE:
             return {
                 ...state,
-                ...action.payload
+                search: action.payload.search,
+                fakestore: action.payload.result
             }
-        case TYPES.TRANSACTION_SUCCESS:
+        case TYPES.SET_FAKE_STORE:
             return {
                 ...state,
-                ...action.payload
+                fakestore: action.payload
             }
-        case TYPES.CLEAR_TRANSACTION:
+        case TYPES.SET_SINGLE_FAKE_STORE:
             return {
                 ...state,
-                payment_status: false,
-                payment_data: {}
+                single_fakestore: action.payload
             }
         default:
             return state;
     }
 }
 
-export default transactionReducer;
+export default fakeStoreReducer;

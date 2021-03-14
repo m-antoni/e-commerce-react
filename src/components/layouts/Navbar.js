@@ -1,14 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { getToken } from '../../helpers/globals';
 import { SwalError } from '../../helpers/swal';
 import { LogoutAlert } from '../../redux/actions/auth.action';
+import { searchFakeStore } from '../../redux/actions/fakestore.actions';
+import { useDebounce } from "use-debounce";
 
-function Navbar({ auth: { loading, user_data: { isAuthenticated, user } }, cart, LogoutAlert }) {
+function Navbar({ auth: { loading, user_data: { isAuthenticated, user } }, cart, LogoutAlert, searchFakeStore }) {
 
     const history = useHistory();
+    const { pathname } = useLocation();
+
     const [dropdown, setDropdown] = useState(false);
+    const [search, setSearch] = useState('');
+    const [debouncedSearch] = useDebounce(search, 500);
+    const [input, setInput] = useState(true);
+    
+    useEffect(() => {
+        setSearch('')
+    },[])
+
+    useEffect(() => {
+        searchFakeStore(debouncedSearch);
+    },[debouncedSearch])
 
     const handleDropdown = (link) => {
         switch (link) {
@@ -38,8 +53,9 @@ function Navbar({ auth: { loading, user_data: { isAuthenticated, user } }, cart,
                     </div>
                     <div className="w-2/4">
                         <form className="hidden md:flex">
-                            <input type="text" name="search" placeholder="Search Products" className="shadow py-1 px-2 w-full focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded-l"/>
-                            <button className="bg-yellow-500 px-2 py-1 text-white rounded-r focus:outline-none hover:bg-yellow-600 h-full"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg></button>
+                            {
+                                input && <input onChange={e => setSearch(e.target.value)} type="text" name="search" placeholder="Search Products here..." className="shadow py-1 px-2 w-full focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded"/>
+                            }
                         </form>
                     </div>
                     <ul className="flex items-center">
@@ -85,4 +101,4 @@ const mapStateToProps = state => ({
     cart: state.cart.cart
 })
 
-export default connect(mapStateToProps, { LogoutAlert })(Navbar);
+export default connect(mapStateToProps, { LogoutAlert, searchFakeStore })(Navbar);

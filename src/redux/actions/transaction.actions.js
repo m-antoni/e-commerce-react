@@ -62,9 +62,16 @@ export const getTransaction = () => async dispatch => {
         
         const res = await TransactionService.getTransaction();
 
-        console.log(res);
+        const transactions = res.data.transactions;
+
+        // const total_amount = transactions.map(trans => {
+        //     return trans.items.reduce((total, currentValue) => total + currentValue.amount, 0);
+        // })
+
+        // console.log(total_amount)
+
         const payload = {
-            transactions: res.data.transactions
+            transactions,
         }
 
         dispatch({ type: TYPES.GET_TRANSACTION, payload });

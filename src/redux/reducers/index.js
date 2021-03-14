@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage';
 // All reducers
 import authReducer from './auth.reducer';
 import cartReducer from './cart.reducer';
+import fakeStoreReducer from './fakestore.reducer';
 import productReducer from './product.reducer';
 import shippingReducer from './shipping.reducer';
 import transactionReducer from './transaction.reducer';
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
     product: productReducer,
     cart: cartReducer,
     shipping: shippingReducer,
-    transaction: transactionReducer
+    transaction: transactionReducer,
+    fakestore: fakeStoreReducer
 });
 
 export default persistReducer(persistConfig, rootReducer);

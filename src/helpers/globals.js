@@ -42,6 +42,31 @@ export const getUserCart = () => {
 }
 
 
+export const setFakeStore = (data) => {
+  localStorage.setItem('fakestore', JSON.stringify(data));
+}
+
+export const removeFakeStore = () => {
+  localStorage.removeItem('fakestore');
+}
+
+export const getFakeStore = () => {
+  const fakeStore = localStorage.getItem('fakestore');
+  if (fakeStore) return JSON.parse(fakeStore);
+  else return null;
+}
+
+
+
+
+/*
+  ************** 
+  Custom Globals
+  **************
+*/
+
+
+
 // display current date
 export const displayDate = () => {
   const today = new Date();
@@ -104,3 +129,4 @@ export const makeRandom = (length) => {
   }
   return result;
 }
+

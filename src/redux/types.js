@@ -19,7 +19,6 @@ export const CHECKED_ITEM           = 'CHECKED_ITEM';
 export const REMOVE_ITEM            = 'REMOVE_ITEM';
 export const CLEAR_CHECKOUT         = 'CLEAR_CHECKOUT';
 
-
 // SHIPPING
 export const GET_SHIPPING           = 'GET_SHIPPING';
 export const ADD_SHIPPING           = 'ADD_SHIPPING';
@@ -29,4 +28,9 @@ export const SHIPPING_FORM          = 'SHIPPING_FORM';
 // TRANSACTION
 export const TRANSACTION_SUCCESS    = 'TRANSACTION_SUCCESS';
 export const CLEAR_TRANSACTION      = 'CLEAR_TRANSACTION';
-export const GET_TRANSACTION      = 'GET_TRANSACTION';
+export const GET_TRANSACTION        = 'GET_TRANSACTION';
+
+// FAKE STORE
+export const SET_FAKE_STORE         = 'SET_FAKE_STORE';
+export const SET_SINGLE_FAKE_STORE  = 'SET_SINGLE_FAKE_STORE';
+export const SEARCH_FAKE_STORE      = 'SEARCH_FAKE_STORE';
