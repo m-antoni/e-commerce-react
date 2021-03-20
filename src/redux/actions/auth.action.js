@@ -4,8 +4,6 @@ import { ToastDanger } from '../../helpers/toast';
 import { getToken, removeFakeStore, removeUserSession, setUserSession } from '../../helpers/globals';
 import { SwalError, SwalWarning } from '../../helpers/swal';
 import { getUserCart } from './cart.actions';
-import { setFakeStoreAPI } from './fakestore.actions';
-import fakestore from '../../utils/fakestore.json';
 
 // Set loading
 export const setLoading = (type = null) => async dispatch => dispatch({ type: TYPES.SET_LOADING, payload: type });
@@ -30,20 +28,17 @@ export const authVerify = () => async dispatch => {
         return; // dont't bother if token is null
     }
 
-    
     try {
 
         dispatch(setLoading('verify'));
         const res = await AuthService.authVerify()
         const payload = {
-            isAuthenticated: true,
+            isAuthenticated: res.data.user ? true : false,
             user: res.data.user,
             id: res.data.id,
-            token: res.data.token,
-            fakestore: res.data.fakestore
+            token: res.data.token
         }
 
-        dispatch(setFakeStoreAPI(payload.fakestore))
         dispatch({ type: TYPES.LOGIN_SUCCESS, payload });
         dispatch(setLoading());
 
@@ -86,7 +81,6 @@ export const authRegister = () => async (dispatch, getState) => {
         }
 
         dispatch({ type: TYPES.LOGIN_SUCCESS, payload });
-        dispatch(setFakeStoreAPI(res.data.fakestore))
         dispatch(setLoading());
     } catch (err) {
         ToastDanger(err.data.errors);
@@ -122,7 +116,6 @@ export const authLogin = () => async (dispatch, getState) => {
         }
 
         dispatch({ type: TYPES.LOGIN_SUCCESS, payload });
-        dispatch(setFakeStoreAPI(res.data.fakestore));
         dispatch(getUserCart());
         dispatch(setLoading());
 

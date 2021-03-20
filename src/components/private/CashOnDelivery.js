@@ -30,11 +30,9 @@ function CashOnDelivery({ cart: { checkout }, shipping: { default_shipping, ship
                             checkout.items.map(item => (
                                 <div className="py-5 bg-white w-full mx-auto mb-5"> 
                                     <div className="flex md:flex-row flex-col px-10 bg-white justify-between">
-                                        <img className="w-10 self-center" src={item.image}/>
+                                        <img className="w-20 self-center mx-2" src={item.image}/>
                                         <div className="w-1/2 flex flex-col self-center">
                                             <h4 className="font-bold text-lg">{item.title}</h4>
-                                        </div>
-                                        <div className="flex self-center">
                                             <p className="font-bold text-lg text-yellow-900"><span className="font-medium text-sm text-gray-500">Price: </span>&#36; {priceFormat(item.price)}</p>
                                         </div>
                                         <div className="flex self-center h-auto">

@@ -13,7 +13,7 @@ export const handleCart = (action, item) => async (dispatch, getState) => {
     switch (action) {
         case 'add':
             // check item if already on the list
-            const checkItem = cart_items.filter(cart_item => cart_item.id === item.id);
+            const checkItem = cart_items.filter(cart_item => cart_item._id === item._id);
 
             if(checkItem.length > 0){
                 alert(`${item.title} is already added to cart.`)
@@ -28,7 +28,7 @@ export const handleCart = (action, item) => async (dispatch, getState) => {
         case 'inc':
             // increment qty of item
             cart_items.map(prod => {
-                if(prod.id === item.id){
+                if(prod._id === item._id){
                     prod['qty'] = prod['qty'] + 1;
                 }
             });
@@ -36,7 +36,7 @@ export const handleCart = (action, item) => async (dispatch, getState) => {
             break;
         case 'dec':
             // decrement qty of item
-            const cartIndex = cart_items.findIndex((prod) => prod.id === item.id);
+            const cartIndex = cart_items.findIndex((prod) => prod._id === item._id);
             let decrement = cart_items[cartIndex]['qty'] =  cart_items[cartIndex]['qty'] - 1;
             cart_items[cartIndex]['qty'] = decrement;
 
@@ -48,7 +48,7 @@ export const handleCart = (action, item) => async (dispatch, getState) => {
 
     // Checked if item is Checked then will update the checkout state
     let isChecked = cart_items.filter(cart => {
-        if(cart.id === item.id){
+        if(cart._id === item._id){
             if(cart.checked){
                 return true;
             }
@@ -60,7 +60,7 @@ export const handleCart = (action, item) => async (dispatch, getState) => {
         checked_item['amount'] = Number((checked_item.price).toFixed(2)) * checked_item.qty;
 
         let update_items = items.map(_item => {
-            if(_item.id === item.id){
+            if(_item._id === item._id){
                 _item = checked_item;
             }
             return _item;
@@ -100,7 +100,7 @@ export const checkItem = (e, _item) => async (dispatch, getState) => {
 
         // updating the cart items checked
         let updateCart = cart_items.map(_cart => {
-            if(_cart.id === _item.id){
+            if(_cart._id === _item._id){
                 _cart['checked'] = true;
             }
             return _cart;
@@ -120,12 +120,12 @@ export const checkItem = (e, _item) => async (dispatch, getState) => {
 
     }else{
         
-        let update_items = items.filter(update => update.id !== _item.id );
+        let update_items = items.filter(update => update._id !== _item._id );
         let _total = update_items.length > 0 ? update_items.reduce((prev, { amount }) => prev + amount, 0) : 0;
 
         // updating the cart items checked
         let updateCart = cart_items.map(_cart => {
-            if(_cart.id === _item.id){
+            if(_cart._id === _item._id){
                 _cart['checked'] = false;
             }
             return _cart;

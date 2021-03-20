@@ -32,7 +32,7 @@ function ShippingModal({ shipping: { shipping, shipping_form, shipping_modal }, 
                     <>
                         { hasDeFault(shipping) }
                         <table className="min-w-full divide-y divide-gray-200">
-                            <thead className="bg-gray-500">
+                            <thead className="bg-black">
                                 <tr>
                                     <th scope="col" className="px-3 py-3 text-left text-sm font-medium text-white uppercase tracking-wider">Address</th>
                                     <th scope="col" className="px-3 py-3 text-left text-sm font-medium text-white uppercase tracking-wider">Contact</th>

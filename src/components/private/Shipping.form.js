@@ -12,7 +12,7 @@ function ShippingCreate({ shipping: { forms, loading, shipping_form, edit_form }
     if(shipping_form === 'add'){
         return (
             <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-500">
+                <thead className="bg-black">
                     <tr>
                         <th scope="col" className="px-3 py-3 text-left text-sm font-medium text-white uppercase tracking-wider">Address</th>
                         <th scope="col" className="px-3 py-3 text-left text-sm font-medium text-white uppercase tracking-wider">Contact</th>
@@ -72,7 +72,7 @@ function ShippingCreate({ shipping: { forms, loading, shipping_form, edit_form }
 
         return (
             <table className="w-full divide-y divide-gray-200">
-                <thead className="bg-gray-500">
+                <thead className="bg-black">
                     <tr>
                         <th scope="col" className="px-3 py-3 text-left text-sm font-medium text-white uppercase tracking-wider">Address</th>
                         <th scope="col" className="px-3 py-3 text-left text-sm font-medium text-white uppercase tracking-wider">Contact</th>

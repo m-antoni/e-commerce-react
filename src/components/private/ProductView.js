@@ -14,25 +14,25 @@ function ProductView({ fakestore: { single_fakestore, loading }, handleCart, get
         getSingleFakeStoreAPI(id)
     },[])
 
-    console.log(id)
+ 
     return (
         <div className="container mx-auto md:px-20 p-5 pt-32">
            {
                loading ? <div className="my-36 mx-auto "><Spinner/></div> :
                     single_fakestore != null ? 
-                        <div className="py-10 bg-white md:w-9/12 w-full mx-auto"> 
+                        <div className="py-5 bg-white md:w-9/12 w-full mx-auto shadow-lg"> 
                             {
                                 <>
-                                    <div className="flex md:flex-row flex-col py-5 px-10 bg-white">
-                                        <img className="h-full w-64 sm:mb-5 mx-auto" src={single_fakestore.image} alt=""/>
-                                        <div className="md:ml-24">
+                                    <div className="flex md:flex-row flex-col py-2 px-10">
+                                        <img className="h-full w-96 sm:mb-5" src={single_fakestore.image} alt=""/>
+                                        <div className="md:ml-10">
                                             <h4 className="font-bold md:text-2xl text-lg">{single_fakestore.title}</h4>
                                             <p className="text-sm my-5">{single_fakestore.description}</p>
                                             <p className="font-bold md:text-3xl text-2xl text-yellow-900 my-5">&#36;  {priceFormat(single_fakestore.price)}</p>
 
                                             <div className="flex justify-between mt-5">
-                                                <button className=" text-white bg-red-900 hover:bg-black py-2 px-3 w-full mr-3">BUY NOW</button>
-                                                <button onClick={() => handleCart('add', single_fakestore)} className=" text-white bg-yellow-500 hover:bg-black py-2 px-3 w-full ml-3">ADD TO CART</button>
+                                                <button className=" text-white bg-red-900 hover:bg-black py-2 px-3 w-full mr-3 rounded">BUY NOW</button>
+                                                <button onClick={() => handleCart('add', single_fakestore)} className=" text-white bg-yellow-500 hover:bg-black py-2 px-3 w-full ml-3 rounded">ADD TO CART</button>
                                             </div>
                                         </div>
                                     </div>

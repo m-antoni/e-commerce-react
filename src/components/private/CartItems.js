@@ -31,12 +31,10 @@ function CartItems({ cart: { cart_items, checkout, checked_group }, checkItem ,h
                                 <div className="py-5 bg-white w-full mx-auto mb-5"> 
                                     <div className="flex md:flex-row flex-col px-10 bg-white justify-between">
                                         <input id={item.id} onChange={e => checkItem(e, item)} type="checkbox" className="self-start" name="checked_item" checked={item.checked}/>
-                                        <img className="w-10 self-center" src={item.image}/>
+                                        <img className="w-20 self-center mx-2" src={item.image}/>
                                         <div className="w-1/2 flex flex-col self-center">
                                             <label for={item.id} className="font-bold text-lg cursor-pointer">{item.title}</label>
                                             <p className="text-sm text-gray-500">{item.description.slice(0, 100) + (item.description.length > 100 ? "..." : "...")}</p>
-                                        </div>
-                                        <div className="flex self-center">
                                             <p className="font-bold text-lg text-yellow-900"><span className="font-medium text-sm text-gray-500">Price: </span>&#36; {priceFormat(item.price)}</p>
                                         </div>
                                         <div className="flex self-center h-auto">
