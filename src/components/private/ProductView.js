@@ -20,18 +20,18 @@ function ProductView({ fakestore: { single_fakestore, loading }, handleCart, get
            {
                loading ? <div className="my-36 mx-auto "><Spinner/></div> :
                     single_fakestore != null ? 
-                        <div className="py-5 bg-white md:w-9/12 w-full mx-auto shadow-lg"> 
+                        <div className="py-5 bg-white md:w-9/12 w-full mx-auto shadow-2xl"> 
                             {
                                 <>
                                     <div className="flex md:flex-row flex-col py-2 px-10">
                                         <img className="h-full w-96 sm:mb-5" src={single_fakestore.image} alt=""/>
                                         <div className="md:ml-10">
-                                            <h4 className="font-bold md:text-2xl text-lg">{single_fakestore.title}</h4>
-                                            <p className="text-sm my-5">{single_fakestore.description}</p>
-                                            <p className="font-bold md:text-3xl text-2xl text-yellow-900 my-5">&#36;  {priceFormat(single_fakestore.price)}</p>
+                                            <h4 className="font-bold md:text-2xl text-lg text-gray-500">{single_fakestore.title}</h4>
+                                            <p className="text-sm my-5 text-gray-500">{single_fakestore.description}</p>
+                                            <p className="font-bold md:text-3xl text-2xl text-red-500 my-5 text-right">&#36;  {priceFormat(single_fakestore.price)}</p>
 
-                                            <div className="flex justify-between mt-5">
-                                                <button className=" text-white bg-red-900 hover:bg-black py-2 px-3 w-full mr-3 rounded">BUY NOW</button>
+                                            <div className="flex justify-between mt-10">
+                                                <button className=" text-white bg-red-500 hover:bg-black py-2 px-3 w-full mr-3 rounded">BUY NOW</button>
                                                 <button onClick={() => handleCart('add', single_fakestore)} className=" text-white bg-yellow-500 hover:bg-black py-2 px-3 w-full ml-3 rounded">ADD TO CART</button>
                                             </div>
                                         </div>

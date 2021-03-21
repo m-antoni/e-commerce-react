@@ -58,7 +58,7 @@ function ShippingCreate({ shipping: { forms, loading, shipping_form, edit_form }
                     <tr>
                         <td colspan="3" className="px-3 py-4 text-right">
                             <button onClick={() => shippingForm('close')} className="text-white bg-red-500 hover:bg-red-900 py-2 px-3 rounded mr-2 font-semibold text-center mt-2">CANCEL</button>
-                            <button onClick={addShipping} className="text-white py-2 px-3 rounded bg-gray-900 hover:bg-gray-800 font-semibold"> SUBMIT </button>
+                            <button onClick={addShipping} className="text-white py-2 px-3 rounded bg-yellow-500 hover:bg-yellow-900 font-semibold"> SUBMIT </button>
                         </td>
                     </tr>
                 </tbody>
@@ -94,7 +94,7 @@ function ShippingCreate({ shipping: { forms, loading, shipping_form, edit_form }
                     <tr>
                         <td colspan="2" className="px-3 py-4 text-right">
                             <button onClick={() => shippingForm('close')} className="text-white bg-red-500 hover:bg-red-900  py-2 px-3 mr-2 font-semibold text-center mt-2 rounded">CANCEL</button>
-                            <button onClick={updateShipping} className="text-white  py-2 px-3 bg-gray-900 hover:bg-gray-800 font-semibold rounded"> UPDATE </button>
+                            <button onClick={updateShipping} className="text-white  py-2 px-3 bg-yellow-500 hover:bg-yellow-900 font-semibold rounded"> UPDATE </button>
                         </td>
                     </tr>
                 </tbody>

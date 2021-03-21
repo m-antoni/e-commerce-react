@@ -7,12 +7,9 @@ import moment from 'moment';
 
 function Purchase({ transaction: { transactions }, getTransaction }) {
 
-    const history = useHistory();
-
     useEffect(() => {
         getTransaction();
     }, [])
-
 
     return (
         <div className="container pt-28 md:px-20 mx-auto">
@@ -23,12 +20,12 @@ function Purchase({ transaction: { transactions }, getTransaction }) {
                             transactions.map((item, i) => (
                                 <div className="mx-auto mb-5"> 
                                    <div className="flex justify-center">
-                                        <div className="w-1/2 flex md:flex-row flex-col p-5 bg-white justify-between cursor-pointer shadow-lg border-2 hover:border-gray-500 border-white">
+                                        <div className="w-1/2 flex md:flex-row flex-col p-5 bg-white justify-between cursor-pointer hover:shadow-2xl rounded">
                                             <div className="flex flex-col self-center text-sm">
-                                                <div className="text-blue-500 font-medium mb-2">{item.transaction_code}</div>
+                                                <div className="text-red-500 font-bold mb-2">{item.transaction_code}</div>
                                                 <div className="text-gray-500 font-medium mb-2">Payment type: {item.payment_type.toUpperCase()}</div>
                                                 <div className="text-gray-500 font-medium mb-2">Total Items: {item.items.length}</div>
-                                                <div className="text-gray-500 font-medium">Total: <span className="font-bold text-yellow-900"> $ {priceFormat(item.amount)}</span></div>
+                                                <div className="text-gray-500 font-medium">Total: <span className="font-bold text-red-900"> $ {priceFormat(item.amount)}</span></div>
                                             </div>
                                             <div className="flex flex-col text-sm">
                                                 <div className="text-gray-500 font-medium">{moment(item.created_at).format('MM/DD/YYYY')}</div>

@@ -58,7 +58,8 @@ export const authVerify = () => async dispatch => {
  * @desc User Register
  * @access public
  */
-export const authRegister = () => async (dispatch, getState) => {
+export const authRegister = e => async (dispatch, getState) => {
+    e.preventDefault();
 
     const { name, email, password, confirm_password} = getState().auth;
 
@@ -95,8 +96,9 @@ export const authRegister = () => async (dispatch, getState) => {
  * @desc User Login
  * @access public
  */
-export const authLogin = () => async (dispatch, getState) => {
-    
+export const authLogin = e => async (dispatch, getState) => {
+    e.preventDefault();
+
     const { email, password } = getState().auth;
 
     try {
