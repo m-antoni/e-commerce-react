@@ -4,13 +4,12 @@ import { useHistory } from 'react-router';
 import { priceFormat } from '../../helpers/globals';
 import { transaction } from '../../redux/actions/transaction.actions';
 
-function Paypal({ cart: { checkout }, transaction , setLoading}) {
+function Paypal({ cart: { checkout }, transaction}) {
     
     const history = useHistory();
     const paypal = useRef();
 
     useEffect(() => {
-
         // Note: need to remove comma for passing value
         const price = priceFormat(checkout.total).split(",").join("");
 
@@ -41,8 +40,8 @@ function Paypal({ cart: { checkout }, transaction , setLoading}) {
 
     },[checkout.total])
 
-    const paymentSuccess = (data)  => {
-        transaction(data, 'paypal');
+    const paymentSuccess = async (data) => {
+        await transaction(data, 'paypal');
         history.push('/home/checkout/payment-sucess');
     }
 

@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { getUserCart, handleCart, checkItem, checkedGroup, removeWarning } from '../../redux/actions/cart.actions';
+import { getUserCart, handleCart, checkItem, checkedGroup, removeWarning, clearCheckOut } from '../../redux/actions/cart.actions';
 import { priceFormat } from '../../helpers/globals';
 
-function CartItems({ cart: { cart_items, checkout, checked_group }, checkItem ,handleCart, checkedGroup, removeWarning }) {
+function CartItems({ cart: { cart_items, checkout, checked_group }, checkItem ,handleCart, checkedGroup, removeWarning, clearCheckOut }) {
 
     const history = useHistory();
+    useEffect(() => {
+        clearCheckOut();
+    }, [])
 
     cart_items.length === 0 && history.push('/home');
 
@@ -28,14 +31,16 @@ function CartItems({ cart: { cart_items, checkout, checked_group }, checkItem ,h
                     {
                         cart_items.length > 0  ? 
                             cart_items.map((item, i) => (
-                                <div className="py-5 bg-white w-full mx-auto mb-5"> 
-                                    <div className="flex md:flex-row flex-col px-10 bg-white justify-between">
-                                        <input id={item.id} onChange={e => checkItem(e, item)} type="checkbox" className="self-start" name="checked_item" checked={item.checked}/>
-                                        <img className="w-20 self-center mx-2" src={item.image}/>
-                                        <div className="w-1/2 flex flex-col self-center">
-                                            <label for={item.id} className="font-bold text-lg cursor-pointer">{item.title}</label>
-                                            <p className="text-sm text-gray-500">{item.description.slice(0, 100) + (item.description.length > 100 ? "..." : "...")}</p>
-                                            <p className="font-bold text-lg text-yellow-900"><span className="font-medium text-sm text-gray-500">Price: </span>&#36; {priceFormat(item.price)}</p>
+                                <div className="py-5 bg-white w-full mx-auto mb-5 hover:shadow-lg"> 
+                                    <div className="flex md:flex-row flex-col px-10 justify-between">
+                                        {/* <img className="w-20 self-center mx-2" src={item.image}/> */}
+                                        <div className="w-1/2 flex">
+                                            <input id={item._id} onChange={e => checkItem(e, item)} type="checkbox" className="mt-2" name="checked_item" checked={item.checked}/>
+                                            <div className="ml-3">
+                                                <label for={item._id} className="font-bold text-lg cursor-pointer">{item.title}</label>
+                                                <p className="text-sm text-gray-500">{item.description.slice(0, 100) + (item.description.length > 100 ? "..." : "...")}</p>
+                                                <p className="font-bold text-lg text-yellow-900"><span className="font-medium text-sm text-gray-500">Price: </span>&#36; {priceFormat(item.price)}</p>
+                                            </div>
                                         </div>
                                         <div className="flex self-center h-auto">
                                             {
@@ -74,7 +79,7 @@ function CartItems({ cart: { cart_items, checkout, checked_group }, checkItem ,h
 
                         {  
                             checkout.items.length > 0 &&  
-                            <button onClick={() => history.push('/home/checkout')} className="flex justify-center text-white bg-yellow-500 hover:bg-yellow-600 py-3 px-3 mt-3 w-full font-semibold align-text-toptext-center rounded">
+                            <button onClick={() => history.push('/home/checkout')} className="flex justify-center text-white bg-red-500 hover:bg-red-600 py-3 px-3 mt-3 w-full font-semibold align-text-toptext-center rounded">
                                 PROCEED TO CHECKOUT
                             </button>
                         }
@@ -89,4 +94,4 @@ const mapStateToProps = state => ({
     cart: state.cart
 })
 
-export default connect(mapStateToProps, { handleCart, getUserCart, checkItem, checkedGroup, removeWarning })(CartItems);
+export default connect(mapStateToProps, { handleCart, getUserCart, checkItem, checkedGroup, removeWarning, clearCheckOut })(CartItems);

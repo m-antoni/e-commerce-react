@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Paypal from './Paypal';
 
-function Checkout() {
+function Checkout({ payment_status }) {
 
     const history = useHistory();
 
@@ -11,7 +11,7 @@ function Checkout() {
         <div className="container mx-auto md:px-20 p-5 pt-32">
             <div className="grid gap-4">                
                 <div className="flex justify-center">
-                    <div className="py-10 px-20 w-auto bg-white rounded mt-5 shadow-2xl">
+                    <div className="py-10 px-10 w-1/2 bg-white rounded mt-5 shadow-2xl">
                         <div className="flex flex-col">
                             <h4 className="font-bold text-2xl my-3 text-center text-gray-500">Choose Your Payment Method</h4>
                         </div>
@@ -27,7 +27,7 @@ function Checkout() {
 }
 
 const mapStateToProps = state => ({
-    //
+    payment_status: state.transaction
 })
 
 export default connect(mapStateToProps, { })(Checkout);

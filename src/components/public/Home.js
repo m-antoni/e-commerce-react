@@ -55,8 +55,8 @@ function Home({ fakestore: { fakestore, loading }, handleCart, isAuthenticated, 
                                     <div className="p-5 bg-white col-auto cursor-pointer hover:shadow-2xl rounded">
                                         <Link to={`/home/products/${item._id}`}>
                                             <img src={item.image} alt=""/>
-                                            <div className="flex justify-between mt-10">
-                                                <span className="text-lg font-bold w-48">{item.title.slice(0, 50) + (item.title.length > 50 ? "..." : "")}</span>
+                                             <div className="flex justify-between mt-10">
+                                                <span className="text-lg font-bold w-64">{item.title.slice(0, 40) + (item.title.length > 40 ? "..." : "")}</span>
                                                 <span className="text-3xl text-yellow-900 font-bold">&#36; {priceFormat(item.price)}</span>
                                             </div>
                                         </Link>

@@ -221,3 +221,21 @@ export const getUserCart = () => async dispatch => {
 }
 
 
+// UnCheck all the checked items
+export const clearCheckOut = () => async (dispatch, getState) => {
+    
+    let { cart_items } = getState().cart;
+
+    let payload = {
+        cart_items: cart_items.map(item => ({ ...item, checked: false })),
+        checkout: {
+            items: [],
+            subtotal: 0.00,
+            total: 0.00
+        },
+        checked_group: false,
+    }
+
+    dispatch({ type: TYPES.CLEAR_CHECKOUT, payload });
+}
+

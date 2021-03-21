@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import { Redirect, useHistory } from 'react-router';
 import { clearTransaction } from '../../redux/actions/transaction.actions';
@@ -7,9 +7,12 @@ function PaymentSuccess({ transaction: { payment_status, payment_data: { amount,
     
     const history = useHistory();
 
-    if(!payment_status){
-        return <Redirect to="/home"/>
-    }
+    useEffect(() => {
+        if(payment_status === false){
+            history.push('/home');
+        }
+    }, [payment_status])
+
 
     const goBack = () => {
         clearTransaction();

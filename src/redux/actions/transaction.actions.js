@@ -1,8 +1,8 @@
 import * as TYPES from '../types';
-import { ToastDanger, ToastSuccess } from '../../helpers/toast';
+import { ToastDanger } from '../../helpers/toast';
 import { TransactionService } from '../../utils/api.service';
 import { makeRandom } from '../../helpers/globals';
-
+import { clearCheckOut } from '../actions/cart.actions';
 
 // Set Loading
 export const setLoading = (type = null) => async dispatch => dispatch({ type: TYPES.SET_LOADING, payload: type });
@@ -13,10 +13,10 @@ export const clearTransaction = () => async dispatch => dispatch({ type: TYPES.C
 // Transaction
 export const transaction = (data, type) => async (dispatch, getState) => {
     
-    let { cart_items, checkout } = getState().cart;
+    let { checkout } = getState().cart;
     let { default_shipping } = getState().shipping;
 
-    let payload = {
+    let transPayload = {
         payment_data: {
             transaction_code: type === 'paypal' ? data.payer.payer_id: makeRandom(13).toUpperCase(),
             payment_type: type,
@@ -26,20 +26,11 @@ export const transaction = (data, type) => async (dispatch, getState) => {
             email: type === 'paypal' ? data.payer.email_address: null,
         },
         payment_status: true,
-        cart: {
-            cart_items: cart_items.map(item => ({...item, checked: false })),
-            checkout: {
-                items: [],
-                subtotal: 0.00,
-                total: 0.00
-            },
-            checked_group: false,
-        }
     }
 
-    dispatch(addTransaction(payload.payment_data));
-    dispatch({ type: TYPES.TRANSACTION_SUCCESS, payload });
-    dispatch({ type: TYPES.CLEAR_CHECKOUT });
+    await dispatch(addTransaction(transPayload.payment_data));
+    await dispatch({ type: TYPES.TRANSACTION_SUCCESS, payload: transPayload });
+    await dispatch(clearCheckOut());
 }
 
 // Add Transaction
@@ -64,12 +55,6 @@ export const getTransaction = () => async dispatch => {
 
         const transactions = res.data.transactions;
 
-        // const total_amount = transactions.map(trans => {
-        //     return trans.items.reduce((total, currentValue) => total + currentValue.amount, 0);
-        // })
-
-        // console.log(total_amount)
-
         const payload = {
             transactions,
         }
@@ -81,3 +66,4 @@ export const getTransaction = () => async dispatch => {
         ToastDanger('Something went wrong.');
     }
 }
+
