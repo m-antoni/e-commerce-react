@@ -11,6 +11,16 @@ export const handleCart = (action, item) => async (dispatch, getState) => {
     let { cart_items, cart, checkout: { items } } = getState().cart;
 
     switch (action) {
+        case 'buy':
+            let payload = {
+                checkout: {
+                     items: [item],
+                     subtotal: item.price,
+                     total: item.price
+                }
+            } 
+            dispatch({ type: TYPES.CHECKED_ITEM, payload });
+            break;
         case 'add':
             // check item if already on the list
             const checkItem = cart_items.filter(cart_item => cart_item._id === item._id);
@@ -39,7 +49,6 @@ export const handleCart = (action, item) => async (dispatch, getState) => {
             const cartIndex = cart_items.findIndex((prod) => prod._id === item._id);
             let decrement = cart_items[cartIndex]['qty'] =  cart_items[cartIndex]['qty'] - 1;
             cart_items[cartIndex]['qty'] = decrement;
-
             break;
         default:
             break;

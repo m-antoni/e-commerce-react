@@ -42,10 +42,11 @@ function App() {
                 <PublicRoute path="/" exact component={Home}/>
                 <PublicRoute path="/login" exact component={Login}/>
                 <PublicRoute path="/register" exact component={Register}/>
+                <PublicRoute path="/home/product-public/:id" exact component={ProductView}/>
 
                 <PrivateRoute path="/home" exact component={Home}/>
+                <PrivateRoute path="/home/product-private/:id" exact component={ProductView}/>
                 <PrivateRoute path="/home/purchases" exact component={Purchase}/>
-                <PrivateRoute path="/home/products/:id" exact component={ProductView}/>
                 <PrivateRoute path="/home/cart" exact component={CartItems}/>
                 <PrivateRoute path="/home/checkout" exact component={Checkout}/>
                 <PrivateRoute path="/home/checkout/cash-on-delivery" exact component={CashOnDelivery}/>

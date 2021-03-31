@@ -9,7 +9,7 @@ const initialState = {
         total: 0.00
     },
     checked_group: false,
-    loading: null,
+    loading: null
 }
 
 

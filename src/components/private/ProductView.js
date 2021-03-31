@@ -1,20 +1,39 @@
 import React, { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Spinner } from '../layouts/Spinner';
 import { handleCart } from '../../redux/actions/cart.actions';
 import { priceFormat } from '../../helpers/globals';
 import { getSingleFakeStoreAPI } from '../../redux/actions/fakestore.actions';
 
-function ProductView({ fakestore: { single_fakestore, loading }, handleCart, getSingleFakeStoreAPI }) {
+function ProductView({ fakestore: { single_fakestore, loading }, handleCart, isAuthenticated, getSingleFakeStoreAPI }) {
 
     let { id } = useParams();
+    const history = useHistory();
 
     useEffect(() => {
         getSingleFakeStoreAPI(id)
     },[])
 
- 
+    
+    const handleButton = (type, item) => {
+        if(isAuthenticated){
+            switch (type) {
+                case 'buy-now':
+                    handleCart('buy', item);
+                    history.push('/home/checkout');
+                    break;
+                case 'add-cart':
+                    handleCart('add', item);
+                    break;
+                default:
+                    break;
+            }
+        }else{
+            history.push('/login');
+        }
+    }
+
     return (
         <div className="container mx-auto md:px-20 p-5 pt-32">
            {
@@ -31,8 +50,8 @@ function ProductView({ fakestore: { single_fakestore, loading }, handleCart, get
                                             <p className="font-bold md:text-3xl text-2xl text-red-500 my-5 text-right">&#36;  {priceFormat(single_fakestore.price)}</p>
 
                                             <div className="flex justify-between mt-10">
-                                                <button className=" text-white bg-red-500 hover:bg-black py-2 px-3 w-full mr-3 rounded">BUY NOW</button>
-                                                <button onClick={() => handleCart('add', single_fakestore)} className=" text-white bg-yellow-500 hover:bg-black py-2 px-3 w-full ml-3 rounded">ADD TO CART</button>
+                                                <button onClick={() => handleButton('buy-now', single_fakestore)} className=" text-white bg-red-500 hover:bg-black py-2 px-3 w-full mr-3 rounded">BUY NOW</button>
+                                                <button onClick={() => handleButton('add-cart', single_fakestore)} className=" text-white bg-yellow-500 hover:bg-black py-2 px-3 w-full ml-3 rounded">ADD TO CART</button>
                                             </div>
                                         </div>
                                     </div>
@@ -47,7 +66,8 @@ function ProductView({ fakestore: { single_fakestore, loading }, handleCart, get
 }
 
 const mapStateToProps = state => ({
-    fakestore: state.fakestore
+    fakestore: state.fakestore,
+    isAuthenticated: state.auth.user_data.isAuthenticated
 })
 
 export default connect(mapStateToProps, {  handleCart, getSingleFakeStoreAPI })(ProductView);

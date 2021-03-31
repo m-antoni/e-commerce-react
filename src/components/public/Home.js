@@ -18,7 +18,8 @@ function Home({ fakestore: { fakestore, loading }, handleCart, isAuthenticated, 
         if(isAuthenticated){
             switch (type) {
                 case 'buy-now':
-                    console.log(type);
+                    handleCart('buy', item);
+                    history.push('/home/checkout');
                     break;
                 case 'add-cart':
                     handleCart('add', item);
@@ -53,7 +54,7 @@ function Home({ fakestore: { fakestore, loading }, handleCart, isAuthenticated, 
                             {
                                 fakestore.map(item => (
                                     <div className="p-5 bg-white col-auto cursor-pointer hover:shadow-2xl rounded">
-                                        <Link to={`/home/products/${item._id}`}>
+                                        <Link to={!isAuthenticated ? `/home/product-public/${item._id}` : `/home/product-private/${item._id}`}>
                                             <img src={item.image} alt=""/>
                                              <div className="flex justify-between mt-10">
                                                 <span className="text-lg text-gray-500 font-bold w-64">{item.title.slice(0, 40) + (item.title.length > 40 ? "..." : "")}</span>
