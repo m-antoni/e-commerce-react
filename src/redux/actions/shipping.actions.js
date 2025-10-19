@@ -101,7 +101,7 @@ export const addShipping = () => async (dispatch, getState)=> {
         }
 
         dispatch({ type: TYPES.GET_SHIPPING, payload })
-        ToastSuccess('Shipping Added Succcessfully');
+        ToastSuccess('Shipping Added Successfully');
         dispatch(setLoading());
     } catch (err) {
         console.log(err);
@@ -191,7 +191,7 @@ export const updateDefault = (id) => async dispatch => {
         }
 
         dispatch({ type: TYPES.GET_SHIPPING, payload });
-        ToastSuccess('Default Shipping has been updated.')
+        // ToastSuccess('Default Shipping has been updated.')
 
     } catch (err) {
         ToastDanger('Something went wrong.');

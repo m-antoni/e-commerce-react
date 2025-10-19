@@ -13,7 +13,7 @@ function Purchase({ transaction: { transactions }, getTransaction }) {
 
     return (
         <div className="container pt-28 md:px-20 mx-auto">
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-4 mt-7">
                 <div className="col-span-4">
                     {
                         transactions.length > 0  ? 
@@ -25,7 +25,7 @@ function Purchase({ transaction: { transactions }, getTransaction }) {
                                                 <div className="text-red-500 font-bold mb-2">{item.transaction_code}</div>
                                                 <div className="text-gray-500 font-medium mb-2">Payment type: {item.payment_type.toUpperCase()}</div>
                                                 <div className="text-gray-500 font-medium mb-2">Total Items: {item.items.length}</div>
-                                                <div className="text-gray-500 font-medium">Total: <span className="font-bold text-red-900"> $ {priceFormat(item.amount)}</span></div>
+                                                <div className="text-gray-500 font-medium">Total: <span className="font-bold"> $ {priceFormat(item.amount)}</span></div>
                                             </div>
                                             <div className="flex flex-col text-sm">
                                                 <div className="text-gray-500 font-medium">{moment(item.created_at).format('MM/DD/YYYY')}</div>

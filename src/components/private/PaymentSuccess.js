@@ -30,14 +30,14 @@ function PaymentSuccess({ transaction: { payment_status, payment_data: { amount,
                         </div>
                         <div className="my-2 text-center">
                             {
-                                payment_type === 'paypal' ? <p className="font-medium text-md text-gray-500">The amount was paid <span className="text-blue-500 font-bold">$ {amount}</span> from {email}</p>
-                                : <p className="font-medium text-md text-gray-500">Order has been place, please prepare cash of <span className="text-blue-500 font-bold">$ {amount}</span></p>
+                                payment_type === 'paypal' ? <p className="font-medium text-md text-gray-500">The amount was paid <span className="text-blue-500 font-bold">${amount}</span> from {email}</p>
+                                : <p className="font-medium text-md text-gray-500">Order has been place, please prepare cash of <span className="text-blue-500 font-bold">${amount}</span></p>
                             }
                             
                             <p className="font-medium text-md text-gray-500 mt-2">Your Transaction Code: <span className="text-blue-500 font-bold">{transaction_code}</span></p>
                         </div>
                         <div className="flex">
-                            <button onClick={goBack} className="text-white bg-blue-500 hover:bg-blue-600 py-3 px-3 mt-5 w-full font-semibold rounded">RETURN TO HOMEPAGE</button>
+                            <button onClick={goBack} className="text-white bg-yellow-500 hover:bg-yellow-600 py-3 px-3 w-full font-semibold mb-2 rounded mt-5 w-full font-semibold rounded">BACK TO HOMEPAGE</button>
                         </div>
                     </div>
                 </div>

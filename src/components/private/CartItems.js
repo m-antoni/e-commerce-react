@@ -37,9 +37,9 @@ function CartItems({ cart: { cart_items, checkout, checked_group }, checkItem ,h
                                         <div className="w-1/2 flex">
                                             <input id={item._id} onChange={e => checkItem(e, item)} type="checkbox" className="mt-2" name="checked_item" checked={item.checked}/>
                                             <div className="ml-3">
-                                                <label for={item._id} className="font-bold text-lg cursor-pointer">{item.title}</label>
-                                                <p className="text-sm text-gray-500">{item.description.slice(0, 100) + (item.description.length > 100 ? "..." : "...")}</p>
-                                                <p className="font-bold text-lg text-yellow-900"><span className="font-medium text-sm text-gray-500">Price: </span>&#36; {priceFormat(item.price)}</p>
+                                                <label for={item._id} className="font-bold text-md cursor-pointer">{item.title}</label>
+                                                <p className="text-sm text-gray-500">{item.description.slice(0, 80) + (item.description.length > 80 ? "..." : "...")}</p>
+                                                <p className="font-bold text-md text-yellow-900 mt-2"><span className="font-medium text-sm text-gray-500">Price: </span>&#36;{priceFormat(item.price)}</p>
                                             </div>
                                         </div>
                                         <div className="flex self-center h-auto">
@@ -62,18 +62,18 @@ function CartItems({ cart: { cart_items, checkout, checked_group }, checkItem ,h
                         <h1 className="mb-2 font-bold">Order Summary</h1>
                         <div className="flex justify-between mb-1">
                             <div className="font-medium text-sm text-gray-500">Subtotal ({ checkout ? checkout.items.length : 0} Items)</div>
-                            <div className="font-bold text-red-500">$ { checkout ? priceFormat(checkout.subtotal) : '0.00'}</div>
+                            <div className="font-bold text-red-500">${ checkout ? priceFormat(checkout.subtotal) : '0.00'}</div>
                         </div>
                         <div className="flex justify-between mb-5">
                             <div className="font-medium text-sm text-gray-500">Shipping Fee</div>
-                            <div className="font-bold text-red-500">$ 5.00</div>
+                            <div className="font-bold text-red-500">$5.00</div>
                         </div>
 
                         <div className="border-2 text-yellow-900 my-2"></div>
 
                         <div className="flex justify-between">
                             <div className="font-medium text-sm">Grand Total</div>
-                            <div className="font-bold text-red-500">$ { checkout ? priceFormat(checkout.total) : '0.00'}</div>
+                            <div className="font-bold text-red-500">${ checkout ? priceFormat(checkout.total) : '0.00'}</div>
                         </div>
                         {  
                             checkout.items.length > 0 &&  

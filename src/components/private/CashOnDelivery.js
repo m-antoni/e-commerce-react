@@ -38,7 +38,8 @@ function CashOnDelivery({ cart: { checkout }, shipping: { default_shipping, ship
                                     <div className="flex justify-between mb-2">
                                         <svg className="w-6 h-6 text-gray-500 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"></path></svg>
                                         <div className="font-semibold">
-                                            {default_shipping.address.slice(0, 25) + (default_shipping.address.length > 25 ? "..." : "...")}
+                                            {default_shipping.address}
+                                            {/* {default_shipping.address.slice(0, 40) + (default_shipping.address.length > 40 ? "..." : "...")} */}
                                         </div>
                                     </div>
                                     <div className="flex justify-between">
@@ -52,18 +53,18 @@ function CashOnDelivery({ cart: { checkout }, shipping: { default_shipping, ship
                             <h1 className="mb-2 font-bold">Order Summary</h1>
                             <div className="flex justify-between mb-1">
                                 <div className="font-medium text-sm text-gray-500">Subtotal ({ checkout ? checkout.items.length : 0} Items)</div>
-                                <div className="font-bold text-red-500">$ { checkout ? priceFormat(checkout.subtotal) : '0.00'}</div>
+                                <div className="font-bold text-red-500">${ checkout ? priceFormat(checkout.subtotal) : '0.00'}</div>
                             </div>
                             <div className="flex justify-between mb-5">
                                 <div className="font-medium text-sm text-gray-500">Shipping Fee</div>
-                                <div className="font-bold text-red-500">$ 5.00</div>
+                                <div className="font-bold text-red-500">$5.00</div>
                             </div>
 
                             <div className="border-2 text-yellow-900 my-2"></div>
 
                             <div className="flex justify-between mb-10">
                                 <div className="font-medium text-sm">Grand Total</div>
-                                <div className="font-bold text-red-500">$ { checkout ? priceFormat(checkout.total) : '0.00'}</div>
+                                <div className="font-bold text-red-500">${ checkout ? priceFormat(checkout.total) : '0.00'}</div>
                             </div>
 
                             {
