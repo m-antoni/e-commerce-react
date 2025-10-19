@@ -60,9 +60,22 @@ function Navbar({ auth: { loading, user_data: { isAuthenticated, user } }, cart,
                     <ul className="flex items-center">
                         <li className="flex justify-between mr-1 md:mr-2 cursor-pointer"> 
                             <svg className="w-6 h-6 text-yellow-500 md:hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
-                                        <svg className="w-6 h-6 text-yellow-500 mt-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path></svg>
+                            <svg className="w-6 h-6 text-yellow-500 mt-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path></svg>
                             {
-                                isAuthenticated ? <Link onClick={cart === 0 ? () => SwalError('You have 0 items, please add at least one.') : () => {}} to={cart === 0 ? () => {} : '/home/cart'} className="rounded-full bg-red-500 flex text-white font-bold items-center justify-center h-7 w-7"><span className="text-sm">{cart}</span></Link> : null
+                                isAuthenticated ? (
+                                    <Link
+                                    to={cart > 0 ? '/home/cart' : '#'}
+                                    onClick={(e) => {
+                                        if (cart === 0) {
+                                        e.preventDefault(); // stop navigation if empty
+                                        SwalError('You have 0 items, please add at least one.');
+                                        }
+                                    }}
+                                    className="rounded-full bg-red-500 flex text-white font-bold items-center justify-center h-7 w-7"
+                                    >
+                                    <span className="text-sm">{cart}</span>
+                                    </Link>
+                                ) : null
                             }
                         </li>
                         <li className="flex cursor-pointer"> 
@@ -85,8 +98,16 @@ function Navbar({ auth: { loading, user_data: { isAuthenticated, user } }, cart,
                     {
                         dropdown && 
                         <ul className="mt-2 pr-5">
-                            <li><Link onClick={() => handleDropdown('/home/purchases')} className="hover:text-white text-yellow-500 mb-1">My Purchases</Link></li>
-                            <li><Link onClick={() => handleDropdown('logout')} className="hover:text-white text-yellow-500 mb-1">Log-out</Link></li>
+                            <li>
+                                <button onClick={() => handleDropdown('/home/purchases')} className="hover:text-white text-yellow-500 mb-1 cursor-pointer bg-transparent border-none">
+                                    My Purchases
+                                </button>
+                            </li>
+                            <li>
+                                <button onClick={() => handleDropdown('logout')} className="hover:text-white text-yellow-500 mb-1 cursor-pointer bg-transparent border-none">
+                                    Log-out
+                                </button>
+                            </li>
                         </ul>
                     }
                 </div>
