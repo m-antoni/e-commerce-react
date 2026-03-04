@@ -1,51 +1,41 @@
-# =========================
 # Stage 1: Build React App
-# =========================
-
-# Use Node 20 LTS Alpine for a lightweight, stable build environment
 FROM node:20-alpine AS build
-
-# Set working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json first
-# - Allows Docker to cache npm install if dependencies don't change
-RUN echo "Copying package.json and installing dependencies..."
+# Accept build arguments
+ARG REACT_APP_API_URL
+ARG REACT_APP_STORE_API
+
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
+ENV REACT_APP_STORE_API=$REACT_APP_STORE_API
+
+# Install dependencies
 COPY package*.json ./
-
-# Install all dependencies required to build the React app
 RUN npm install
-RUN echo "Dependencies installed."
 
-# Copy the rest of the source code into the container
-RUN echo "Copying React source code..."
+# Copy source and build
 COPY . .
-
-# Build the React app for production
-# - Output will go into /app/build
-RUN echo "Building React app for production..."
 RUN npm run build
-RUN echo "React build completed."
 
-# =========================
 # Stage 2: Serve with Nginx
-# =========================
-
-# Use lightweight Nginx image for serving static files
 FROM nginx:alpine
 
-# Copy the build output from the previous stage into Nginx's HTML folder
+# Copy React build
 COPY --from=build /app/build /usr/share/nginx/html
 
-# Inform Docker the container listens on port 80
+# Copy custom Nginx config to enable SPA routing
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
 
-# Add a simple health-check script to confirm Nginx is serving files
-# - Prints a message every 5 seconds, useful for logs
-RUN echo 'while true; do echo "React app is ready and served by Nginx"; sleep 5; done &' >> /usr/share/nginx/html/healthcheck.sh && \
-    chmod +x /usr/share/nginx/html/healthcheck.sh
 
-# Start Nginx in the foreground and run the health-check script
-# - 'daemon off;' keeps Nginx in the foreground (required for Docker)
-# - The health-check script runs in the background and logs to stdout
-CMD ["sh", "-c", "/usr/share/nginx/html/healthcheck.sh && nginx -g 'daemon off;'"]
+########################################
+# Deploy in render.com
+########################################
+
+# build image and inject env to build time note 
+# docker build --build-arg REACT_APP_API_URL=<BACKEND_URL/api> --build-arg REACT_APP_STORE_API=https://fakestoreapi.com/products -t michael0221/eshop-mern-frontend:latest .
+
+# push the image to Docker Hub
+# docker push <dockerhub-name>/<app-name>:latest
