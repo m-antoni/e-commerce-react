@@ -30,6 +30,15 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/eshop-mern-frontend:ec2
 
+      - name: Upload deploy script to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "deploy-frontend.sh"
+          target: "~/deploy/"
+
       - name: Deploy using deploy.sh
         uses: appleboy/ssh-action@v1.0.3
         with:
