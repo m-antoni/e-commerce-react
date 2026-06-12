@@ -1,40 +1,58 @@
+# =========================
 # Stage 1: Build React App
+# =========================
 FROM node:20-alpine AS build
 
-# Set working directory
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+# =========================
+# Build-time arguments (IMPORTANT)
+# =========================
+ARG REACT_APP_API_URL
+ARG REACT_APP_STORE_API
 
-# install npm packages
+# Convert to environment variables for React build
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
+ENV REACT_APP_STORE_API=$REACT_APP_STORE_API
+
+# =========================
+# Install dependencies
+# =========================
+COPY package*.json ./
 RUN npm install
 
-# Copy source and build
+# =========================
+# Copy source code
+# =========================
 COPY . .
 
+# =========================
+# Build React app
+# =========================
 RUN npm run build
 
+
+# =========================
 # Stage 2: Serve with Nginx
+# =========================
 FROM nginx:alpine
 
-# Copy React build
+# Clean default nginx files
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy build output
 COPY --from=build /app/build /usr/share/nginx/html
 
-# Copy custom Nginx config to enable SPA routing
+# SPA routing config
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Expose port 80
 EXPOSE 80
 
-# Labels for metadata
 LABEL maintainer="Michael Antoni michaelantoni.tech@gmail.com"
 LABEL version="1.0.0"
 LABEL description="e-shop MERN Stack Project"
 
-# Start Nginx in the foreground
 CMD ["nginx", "-g", "daemon off;"]
-
 
 
 # build image and inject env to build time note 
