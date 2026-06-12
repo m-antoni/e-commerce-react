@@ -30,7 +30,7 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/eshop-mern-frontend:ec2
 
-      - name: Deploy Backend via Script
+      - name: Deploy using deploy.sh
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
