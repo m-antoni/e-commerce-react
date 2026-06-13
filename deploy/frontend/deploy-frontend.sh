@@ -8,11 +8,14 @@ echo "***********************************"
 
 cd ~/deploy/frontend || exit 1
 
+echo "Removing old frontend container..."
+docker rm -f mern-frontend 2>/dev/null || true
+
 echo "Pulling frontend image..."
-docker compose pull frontend
+docker compose --project-name mern pull frontend
 
 echo "Starting frontend..."
-docker compose up -d frontend
+docker compose --project-name mern up -d frontend
 
 echo "Saving frontend logs..."
 LOGDIR=~/deploy/frontend/logs
