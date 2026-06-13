@@ -29,24 +29,73 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/eshop-mern-frontend:ec2
+          build-args: |
+            REACT_APP_API_URL=/api
+            REACT_APP_STORE_API=https://fakestoreapi.com/products
 
-      - name: Upload docker-compose.yml to EC2
-        uses: appleboy/scp-action@v0.1.7
+      - name: Create docker-compose.yml on EC2
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "docker-compose.yml"
-          target: "~/deploy/"
+          script: |
+            mkdir -p ~/deploy
+            cat <<'COMPOSE_EOF' > ~/deploy/docker-compose.yml
+            services:
+              backend:
+                image: michael0221/eshop-backend:ec2
+                container_name: mern-backend
+                restart: unless-stopped
+                env_file:
+                  - .env
+                environment:
+                  NODE_ENV: production
+                  PORT: 5000
+                networks:
+                  - mern-network
 
-      - name: Upload deploy script to EC2
-        uses: appleboy/scp-action@v0.1.7
+              frontend:
+                image: michael0221/eshop-mern-frontend:ec2
+                container_name: mern-frontend
+                restart: unless-stopped
+                ports:
+                  - "3000:80"
+                depends_on:
+                  - backend
+                networks:
+                  - mern-network
+
+            networks:
+              mern-network:
+                driver: bridge
+            COMPOSE_EOF
+
+      - name: Create deploy script on EC2
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "deploy-frontend.sh"
-          target: "~/deploy/"
+          script: |
+            cat <<'SCRIPT_EOF' > ~/deploy/deploy-frontend.sh
+            #!/bin/bash
+            set -e
+            echo "***********************************"
+            echo "Deploying FRONTEND"
+            echo "***********************************"
+            cd ~/deploy || exit 1
+            echo "Pulling frontend image..."
+            docker compose pull frontend
+            echo "Starting frontend..."
+            docker compose up -d frontend
+            echo "Pruning unused images..."
+            docker image prune -f
+            echo "***********************************"
+            echo "Frontend deployment complete"
+            echo "***********************************"
+            SCRIPT_EOF
+            chmod +x ~/deploy/deploy-frontend.sh
 
       - name: Deploy using deploy.sh
         uses: appleboy/ssh-action@v1.0.3
