@@ -16,6 +16,12 @@ docker compose --project-name mern pull frontend
 
 echo "Starting frontend..."
 docker compose --project-name mern up -d frontend
+
+echo "Preparing Grafana data directory..."
+mkdir -p ~/deploy/grafana/data
+sudo chown -R 472:472 ~/deploy/grafana/data
+
+echo "Starting support services..."
 docker compose --project-name mern up -d dozzle loki promtail grafana
 
 echo "Saving frontend logs..."
