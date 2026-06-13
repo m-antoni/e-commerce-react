@@ -2,8 +2,7 @@ import axios from "axios";
 import { getToken } from "../helpers/globals";
 import env from "../config/env.config.json";
 
-// const API_ROOT = process.env.REACT_APP_API_URL;
-const API_ROOT = env.API_URL[process.env.NODE_ENV] || env.API_URL.production;
+const API_ROOT = process.env.REACT_APP_API_URL || env.API_URL[process.env.NODE_ENV] || env.API_URL.production;
 
 const http = axios.create({
   baseURL: API_ROOT,
