@@ -16,7 +16,7 @@ docker compose --project-name mern pull frontend
 
 echo "Starting frontend..."
 docker compose --project-name mern up -d frontend
-docker compose --project-name mern up -d dozzle
+docker compose --project-name mern up -d dozzle loki promtail grafana
 
 echo "Saving frontend logs..."
 LOGDIR=~/deploy/frontend/logs
