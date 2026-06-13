@@ -33,6 +33,16 @@ jobs:
             REACT_APP_API_URL=/api
             REACT_APP_STORE_API=https://fakestoreapi.com/products
 
+      - name: Upload frontend files to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "deploy/frontend/"
+          target: "~/deploy/"
+          strip_components: 1
+
       - name: Deploy Frontend on EC2
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -40,6 +50,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            mkdir -p ~/deploy/frontend/logs
             cd ~/deploy/frontend
             chmod +x deploy-frontend.sh
             ./deploy-frontend.sh

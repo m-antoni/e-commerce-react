@@ -6,7 +6,7 @@ echo "***********************************"
 echo "Deploying FRONTEND"
 echo "***********************************"
 
-cd ~/deploy || exit 1
+cd ~/deploy/frontend || exit 1
 
 echo "Pulling frontend image..."
 docker compose pull frontend
