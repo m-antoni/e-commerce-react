@@ -40,6 +40,6 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd ~/deploy
+            cd ~/deploy/frontend
             chmod +x deploy-frontend.sh
             ./deploy-frontend.sh
