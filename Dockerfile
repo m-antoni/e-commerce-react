@@ -13,6 +13,11 @@ RUN npm install
 # Copy source and build
 COPY . .
 
+ARG REACT_APP_API_URL
+ARG REACT_APP_STORE_API
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
+ENV REACT_APP_STORE_API=$REACT_APP_STORE_API
+
 RUN npm run build
 
 # Stage 2: Serve with Nginx
