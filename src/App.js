@@ -6,6 +6,7 @@ import { store, persistor }  from './store';
 import { authVerify } from './redux/actions/auth.action';
 import PrivateRoute from './utils/PrivateRoute';
 import PublicRoute from './utils/PublicRoute';
+import TrackingPixel from './components/TrackingPixel';
 import $ from 'jquery';
 
 // Public Route
@@ -35,6 +36,7 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
+        <TrackingPixel />
         <PersistGate persistor={persistor}>
             <Fragment>
               <Navbar/>
